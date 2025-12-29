@@ -19,7 +19,8 @@ const policies = [
     ],
     eligibility: "Residential consumers only. Must own the roof rights.",
     link: "https://pmsuryaghar.gov.in",
-    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSdqPUWgWCrKXsEG2D86Lv6zbb1Pc0quk6i3kxsOJLOX4VOaCg/viewform",
+formLink: "https://docs.google.com/forms/d/e/1FAIpQLSdqPUWgWCrKXsEG2D86Lv6zbb1Pc0quk6i3kxsOJLOX4VOaCg/viewform?usp=header",
+
     accent: "#28a745"
   },
   {
@@ -34,7 +35,7 @@ const policies = [
     ],
     eligibility: "Farmers, cooperatives, and panchayats with agricultural land.",
     link: "https://pmkusum.mnre.gov.in",
-    formLink: "https://docs.google.com/forms/d/e/PM_KUSUM_FORM_ID/viewform",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSeNusoJ6aF1Te3F5yse9obpTqXQnH239utog_5z2Zx2NiitSw/viewform",
     accent: "#eab308"
   },
   {
@@ -49,7 +50,7 @@ const policies = [
     ],
     eligibility: "Monthly consumption ≤ 100 units.",
     link: "#",
-    formLink: "https://docs.google.com/forms/d/e/SMART_PROGRAM_FORM_ID/viewform",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSewTuhnj135QhGgx6nOYtvG2lUn8vycPUh3YeVR3QTfQxiPnA/viewform",
     accent: "#3b82f6"
   },
   {
@@ -64,7 +65,7 @@ const policies = [
     ],
     eligibility: "Consumers with contracted demand > 100 kW.",
     link: "https://greenopenaccess.in",
-    formLink: "https://docs.google.com/forms/d/e/GREEN_OPEN_ACCESS_FORM_ID/viewform",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSes5Y6U6Jii9LBlmChhQydkgXGEa2ud4oN39VrbjxBDM-1ZNA/viewform",
     accent: "#10b981"
   },
   {
@@ -79,7 +80,7 @@ const policies = [
     ],
     eligibility: "Residential/Commercial units within same DISCOM area.",
     link: "#",
-    formLink: "https://docs.google.com/forms/d/e/VNM_FORM_ID/viewform",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSebn5m1sdE7hqOGuoZ7nfqpUlFDt52uYvNo_ZmEKgdq918WBA/viewform",
     accent: "#8b5cf6"
   },
   {
@@ -94,7 +95,7 @@ const policies = [
     ],
     eligibility: "Consumers with multiple connections in the same distribution zone.",
     link: "#",
-    formLink: "https://docs.google.com/forms/d/e/GNM_FORM_ID/viewform",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSdRNdPd-mskf94i2AJzVEBxzUWHeouXBOLbwPoNPeAuFyWeSQ/viewform",
     accent: "#f43f5e"
   }
 ];
@@ -264,7 +265,7 @@ const AwarenessCampaign = () => {
 
                   <div className="mt-8 md:mt-10">
 <a 
-  href="https://docs.google.com/forms/d/e/1FAIpQLSdqPUWgWCrKXsEG2D86Lv6zbb1Pc0quk6i3kxsOJLOX4VOaCg/viewform"
+  href={policy.formLink}
   target="_blank"
   rel="noreferrer"
   className="group flex items-center justify-between w-full p-3 md:p-4 bg-white text-black font-bold uppercase tracking-wider text-xs md:text-sm hover:bg-[#28a745] hover:text-white transition-all duration-300"
@@ -272,6 +273,7 @@ const AwarenessCampaign = () => {
   Check Eligibility
   <span className="group-hover:translate-x-1 transition-transform">↗</span>
 </a>
+
 
                   </div>
                 </div>
