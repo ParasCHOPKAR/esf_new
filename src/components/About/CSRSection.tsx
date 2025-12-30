@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 // --- IMPORTED IMAGES ---
 import awareness from "../About/CompanyRoles/Awareness.avif";
 import sustain from "../About/CompanyRoles/sustain.avif";
-import empowerment from "../About/CompanyRoles/empower.avif";
+import empowerment from "/images/employment.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 

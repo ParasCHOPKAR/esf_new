@@ -8,10 +8,10 @@ import { ScrollTrigger } from 'gsap/all';
 gsap.registerPlugin(ScrollTrigger);
 
 const impactData = [
-    { label: "MW SUPPLIED", value: 100, suffix: "+" },
-    { label: "INTEGRATORS TRAINED", value: 500, suffix: "+" },
-    { label: "STATES COVERED", value: 10, suffix: "+" },
-    { label: "SUCCESS RATE", value: 98, suffix: "%" },
+    { label: "projects delivered successfully", value: 7500, suffix: "+" },
+    { label: "Associated partners", value: 5000, suffix: "+" },
+    { label: "Established", value: 2015 },
+    { label: "industry-trained specialists", value:10000 , suffix: "+" },
 ];
 
 const OurImpact = () => {

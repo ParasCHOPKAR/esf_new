@@ -78,7 +78,7 @@ const CompanyOverview = () => {
     const content = [
         {
             title: "Our Company",
-            text: "At Infravisory Consultancy Pvt. Limited (Energica), we believe in a client-centric approach, focusing on understanding the unique needs and goals of each project. Our team combines industry knowledge with innovative thinking.",
+            text: "Energica Sustain Foundation, we believe in a client-centric approach, focusing on understanding the unique needs and goals of each project. Our team combines industry knowledge with innovative thinking.",
             src: team,
             color: "#28a745"
         },

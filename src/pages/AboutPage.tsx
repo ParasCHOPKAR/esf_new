@@ -45,9 +45,7 @@ const AboutPage = () => {
                 <MissionVision/>
             </section>
             
-            <section id="leadership">
-                <LeadershipTeam/>
-            </section>
+    
             
             <section id="impact">
                 <OurImpact/>

@@ -200,16 +200,18 @@ const MissionVision: React.FC = () => {
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-8 mt-12 md:mt-16 border-t border-white/10 pt-8 md:pt-10">
                                 <div>
                                     <div className="text-4xl md:text-5xl font-black text-white mb-2 flex">
-                                        <Counter value={100} suffix="%" />
+                                        <Counter value={5000} suffix="+" />
                                     </div>
-                                    <p className="text-xs md:text-sm text-[#28a745] uppercase tracking-wider font-mono">Sustainable</p>
+                                    <p className="text-xs md:text-sm text-[#28a745] uppercase tracking-wider font-mono">Associated partners </p>
                                 </div>
                                 <div>
                                     <div className="text-4xl md:text-5xl font-black text-white mb-2 flex">
-                                        <span className="mr-1">#</span><Counter value={1} />
+                                        <span className="mr-1">#</span><Counter value={2015} />
                                     </div>
-                                    <p className="text-xs md:text-sm text-[#28a745] uppercase tracking-wider font-mono">Trusted Partner</p>
+                                    <p className="text-xs md:text-sm text-[#28a745] uppercase tracking-wider font-mono">Established</p>
                                 </div>
+                               
+                          
                                 <div>
                                     <div className="text-4xl md:text-5xl font-black text-white mb-2">∞</div>
                                     <p className="text-xs md:text-sm text-[#28a745] uppercase tracking-wider font-mono">Innovation</p>
