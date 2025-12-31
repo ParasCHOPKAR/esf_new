@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;900&family=Noto+Sans+Devanagari:wght@400;700&display=swap');
+
+/* Apply Montserrat Black for the main logo look */
+.font-montserrat-black { font-family: 'Montserrat', sans-serif; font-weight: 900; }
+/* Apply Noto Sans for the system types */
+.font-noto { font-family: 'Noto Sans Devanagari', sans-serif; }
+/* Apply Montserrat Medium for the slogan */
+.font-montserrat-medium { font-family: 'Montserrat', sans-serif; font-weight: 500; }

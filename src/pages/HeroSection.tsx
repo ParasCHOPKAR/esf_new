@@ -7,13 +7,14 @@ import solar from "../assets/solar-Panels.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const HeroSection = () => {
-    const bg1 = useRef(null);
-    const img_container = useRef(null);
-    const container = useRef(null); 
-    const text1 = useRef(null);
-    const text2 = useRef(null);
-    const img = useRef(null);
+const HeroSection: React.FC = () => {
+    const bg1 = useRef<HTMLDivElement>(null);
+    const img_container = useRef<HTMLDivElement>(null);
+    const container = useRef<HTMLDivElement>(null); 
+    const text1 = useRef<HTMLHeadingElement>(null);
+    const text2 = useRef<HTMLHeadingElement>(null);
+    const text3 = useRef<HTMLParagraphElement>(null);
+    const img = useRef<HTMLImageElement>(null);
 
     useLayoutEffect(() => {
         // Safety Check
@@ -45,14 +46,18 @@ const HeroSection = () => {
                 }
             })
             // ZOOM Effect
-            .to(img.current, { transform: "translateZ(2200px)" }) 
-            // Text Moves Up & Fades Out
-            .to(text1.current, { y: -300, opacity: 0 }, "<0.05") 
-            .to(text2.current, { y: -300, opacity: 0 }, "<0.05") 
+            .to(img.current, { transform: "translateZ(2200px)", ease: "none" }) 
+            // Text Group Moves Up & Fades Out
+            .to([text1.current, text2.current, text3.current], { 
+                y: -300, 
+                opacity: 0, 
+                stagger: 0.05, 
+                ease: "power2.inOut" 
+            }, "<0.05") 
             // Content Slides Up from bottom
             .fromTo(container.current, 
                 { yPercent: 100, scaleY: 2 }, 
-                { yPercent: 0, scaleY: 1 } 
+                { yPercent: 0, scaleY: 1, ease: "none" } 
             ); 
         });
 
@@ -61,49 +66,54 @@ const HeroSection = () => {
 
     return (
         <div className="relative">
-            {/* BLACK BACKGROUND */}
+            {/* UPDATED: DEEP BLACK BACKGROUND (#0b0b0b) */}
             <div ref={bg1} className="bg-[#0b0b0b] absolute h-screen w-screen -z-10"></div>
 
             <section>
                 <div ref={img_container} className="w-screen h-[100dvh] flex items-center justify-center overflow-hidden">
                     <div className="image-wrapper perspective relative flex items-center justify-center">
 
-                        {/* Image - Colorful & Vibrant */}
+                        {/* Image - Adjusted for black background contrast */}
                         <img 
                             ref={img} 
                             src={solar} 
-                            className="masked-image brightness-100 contrast-110" 
+                            className="masked-image brightness-90 contrast-125 opacity-60" 
                             alt="Solar Farm" 
                         />
+                        
+                        {/* Circular Overlay for text legibility (Matches reference image style) */}
+                        <div className="absolute inset-0 bg-black/20 rounded-full scale-75 blur-3xl pointer-events-none"></div>
 
                         {/* Center Text Overlay */}
-                        <div className="absolute z-20 flex flex-col items-center justify-center text-center w-full px-4">
+                        <div className="absolute z-20 flex flex-col items-center justify-center text-center w-full px-4 text-white">
 
-                            {/* Main Title: ENER (Hollow) + GICA (Solid) */}
+                            {/* Main Title: Montserrat Black + Italic Style for ENERGICA® */}
                             <h1 
                                 ref={text1} 
-                                // UPDATED CLASSES HERE:
-                                // 1. items-center justify-center: Centers alignment
-                                // 2. whitespace-nowrap: Prevents line breaks
-                                // 3. text-[12vw]: Fills circle better
-                                // 4. gap-1: Tighter spacing on mobile
-                                className="text-[12vw] md:text-[120px] font-black leading-none drop-shadow-2xl tracking-tighter flex items-center justify-center gap-1 md:gap-4 whitespace-nowrap"
+                                style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 900 }}
+                                className="text-[14vw] md:text-[150px] leading-none tracking-tighter flex items-center justify-center italic whitespace-nowrap drop-shadow-2xl"
                             >
-                                <span className="text-transparent" style={{ WebkitTextStroke: "1px white" }}>
-                                    ENER
-                                </span>
-                                <span className="text-white">
-                                    GICA
-                                </span>
+                                ENERGICA
+                                <span className="text-[4vw] md:text-[45px] not-italic align-top mt-[-2%] font-bold">®</span>
                             </h1>
 
-                            {/* Subtitle: SUSTAIN FOUNDATION */}
+                            {/* Subtitle: Noto Sans Devanagari for Categories */}
                             <h2 
                                 ref={text2} 
-                                className="mt-4 md:mt-6 text-[2.5vw] md:text-[20px] font-bold tracking-[0.3em] text-white drop-shadow-md"
+                                style={{ fontFamily: "'Noto Sans Devanagari', sans-serif" }}
+                                className="mt-2 md:mt-4 text-[2.2vw] md:text-[22px] font-bold tracking-widest uppercase opacity-90 drop-shadow-lg"
                             >
-                                SUSTAIN FOUNDATION
+                                Grid Tied | Off Grid | Hybrid | Micro | Utility
                             </h2>
+
+                            {/* Slogan: Montserrat Medium */}
+                            <p 
+                                ref={text3}
+                                style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500 }}
+                                className="mt-10 md:mt-16 text-[3.2vw] md:text-[26px] max-w-5xl leading-tight tracking-tight drop-shadow-lg"
+                            >
+                                Powering India’s Solar Ecosystem with reliable PV components
+                            </p>
 
                         </div>
                     </div>

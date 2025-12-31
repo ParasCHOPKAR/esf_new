@@ -2,10 +2,13 @@
 
 body {
   overflow-x: hidden;
-  background-color: #0b0b0b;
+  /* UPDATED: Brand Red background instead of black */
+  background-color: #C80000; 
   color: #ffffff;
   margin: 0;
   padding: 0;
+  /* Montserrat is the primary brand font */
+  font-family: 'Montserrat', sans-serif;
 }
 
 body.loaded {
@@ -15,17 +18,10 @@ body.loaded {
 @layer components {
   /* --- RESPONSIVE IMAGE WRAPPER (Market Standard Sizing) --- */
   .image-wrapper {
-    /* MOBILE STRATEGY (320px - 450px screens):
-      We use 85vw to ensure it fits safely within the bezels of standard phones 
-      (iPhone 12/13/14, Samsung S21/S22/S23).
-    */
     width: 85vw;
     height: 85vw;
     
-    /* Constraints:
-      Min: 280px (Prevents breaking on Galaxy Fold outer screen)
-      Max: 400px (Prevents becoming massive on Tablets/iPad Mini)
-    */
+    /* Constraints */
     min-width: 280px;
     min-height: 280px;
     max-width: 400px;
@@ -37,29 +33,34 @@ body.loaded {
     position: relative;
   }
 
-  /* DESKTOP/LAPTOP OVERRIDE (Standard 1366x768 and up) */
+  /* DESKTOP/LAPTOP OVERRIDE */
   @media (min-width: 768px) {
     .image-wrapper {
-      width: 550px; /* Slightly tighter than 600px for better laptop view */
+      width: 550px; 
       height: 550px;
       max-width: none;
       max-height: none;
     }
   }
   
-  /* LARGE DESKTOP OVERRIDE (1920x1080 and up) */
+  /* LARGE DESKTOP OVERRIDE */
   @media (min-width: 1536px) {
     .image-wrapper {
       width: 700px;
       height: 700px;
     }
   }
-  /* --- FIX END --- */
 
+  /* --- MASKED IMAGE: Blending into Brand Red --- */
   .masked-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* This blend mode allows the red background to show through the darker parts of the image */
+    mix-blend-mode: multiply;
+    /* Optional: Grayscale makes the blend more consistent with brand colors */
+    filter: grayscale(100%) brightness(1.1) contrast(1.2);
+    
     -webkit-mask-image: url("/src/assets/o.png");
     mask-image: url("/src/assets/o.png");
     -webkit-mask-size: 100% 100%;
@@ -74,7 +75,7 @@ body.loaded {
     perspective: 2200px;
   }
 
-  /* Film Grain */
+  /* Film Grain - Slightly more visible for a technical/industrial feel */
   .noise-overlay {
     position: fixed;
     top: 0;
@@ -83,20 +84,27 @@ body.loaded {
     height: 100%;
     pointer-events: none;
     z-index: 9990;
-    opacity: 0.05;
+    opacity: 0.08; 
     background: url("https://grainy-gradients.vercel.app/noise.svg");
   }
 
+  /* --- BRANDED SCROLLBAR --- */
   ::-webkit-scrollbar {
     width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #0b0b0b;
+    background: #C80000;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #333;
+    /* Darker red for the thumb */
+    background: #a00000;
     border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
   }
 }

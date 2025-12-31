@@ -51,7 +51,7 @@ const CTASection = () => {
     }, []);
 
     return (
-        <div ref={container} className="relative w-screen h-[70vh] bg-black text-white flex flex-col items-center justify-center overflow-hidden">
+        <div ref={container} className="relative w-screen h-[70vh] bg-black text-white flex flex-col items-center justify-center overflow-hidden" style={{ fontFamily: "'Montserrat', sans-serif" }}>
             
             {/* 2. BACKGROUND IMAGE WITH OVERLAY */}
             <div className="absolute inset-0 z-0">
@@ -66,31 +66,44 @@ const CTASection = () => {
 
             {/* Content */}
             <div className="relative z-10 text-center px-6">
-                <p className="text-[#28a745] tracking-[0.5em] text-sm uppercase mb-6 font-bold bg-white/10 py-2 px-4 rounded-full w-fit mx-auto border border-[#28a745]/30">
-                    Partner With Us
+                {/* Tagline: Montserrat Medium */}
+                <p className="text-white tracking-[0.5em] text-xs md:text-sm uppercase mb-6 font-medium bg-white/10 py-2 px-6 rounded-full w-fit mx-auto border border-white/20">
+                    // INITIATE PARTNERSHIP
                 </p>
 
-                <h2 ref={textRef} className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-12 leading-tight">
-                    Start Your <br /> <span className="text-white text-stroke">Solar Journey</span>
+                {/* Main Heading: Montserrat Black Italic */}
+                <h2 
+                    ref={textRef} 
+                    style={{ fontWeight: 900 }}
+                    className="text-4xl md:text-8xl font-black uppercase italic tracking-tighter mb-12 leading-[0.85] text-white"
+                >
+                    Architect Your <br /> <span className="text-white">Green Grid</span>
                 </h2>
 
                 <button 
                     ref={buttonRef} 
                     onClick={() => window.location.href = "mailto:connect@solarbni.com"} 
-                    className="group relative px-12 py-5 bg-[#28a745] text-white rounded-full overflow-hidden transition-transform hover:scale-105 shadow-2xl border border-[#28a745]"
+                    className="group relative px-14 py-6 bg-white text-black rounded-full overflow-hidden transition-transform hover:scale-105 shadow-2xl border border-white"
                 >
-                    {/* Hover Fill Effect (White) */}
-                    <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
+                    {/* Hover Fill Effect (Darkness) */}
+                    <div className="absolute inset-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
                     
-                    <span className="relative z-10 font-bold tracking-widest uppercase text-sm group-hover:text-[#28a745] transition-colors duration-300">
-                        Get Consultation
+                    <span className="relative z-10 font-black tracking-widest uppercase text-sm group-hover:text-white transition-colors duration-300 italic">
+                        Get Consultation ↗
                     </span>
                 </button>
                 
-                <p className="mt-8 text-sm text-gray-400 tracking-widest uppercase font-semibold">
-                    Call us: +91 77700 11558
-                </p>
+                {/* Secondary Text: Montserrat Medium */}
+                <div className="mt-12 space-y-2">
+                    <p className="text-xs md:text-sm text-white/60 tracking-[0.4em] uppercase font-medium">
+                        Direct Line: +91 77700 11558
+                    </p>
+                    <div className="w-12 h-[2px] bg-white/30 mx-auto"></div>
+                </div>
             </div>
+
+            {/* Subtle Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }}></div>
         </div>
     );
 };

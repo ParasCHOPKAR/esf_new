@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -14,53 +14,48 @@ const navItems = [
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [isHidden, setIsHidden] = useState(false); // Controls navbar visibility
+    const [isHidden, setIsHidden] = useState(false); 
     const menuRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const bgRef = useRef<HTMLDivElement>(null);
 
     const navigate = useNavigate();
     const location = useLocation();
-    
-    // 1. SMART SCROLL LOGIC
     const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         const previous = scrollY.getPrevious() || 0;
-        
-        // If we are at the very top, always show navbar
-        if (latest < 50) {
-            setIsHidden(false);
-        } 
-        // If scrolling DOWN and not at top -> Hide
-        else if (latest > previous && latest > 50) {
-            setIsHidden(true);
-        } 
-        // If scrolling UP -> Show
-        else if (latest < previous) {
-            setIsHidden(false);
-        }
+        if (latest < 50) setIsHidden(false);
+        else if (latest > previous && latest > 50) setIsHidden(true);
+        else if (latest < previous) setIsHidden(false);
     });
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
+            // Master Timeline for Menu Open
             const tl = gsap.timeline({
                 paused: true,
-                defaults: { duration: 0.8, ease: "power4.inOut" }
+                defaults: { duration: 1, ease: "expo.inOut" }
             });
 
             tl.to(menuRef.current, {
                 x: 0,
-                skewX: 0,
                 opacity: 1,
-            });
-
-            tl.from(".menu-link-item", {
-                y: 20,
+                visibility: "visible",
+            })
+            .from(".menu-link-item", {
+                y: 80,
+                rotate: 5,
                 opacity: 0,
-                duration: 0.5,
-                stagger: 0.08,
-                ease: "power3.out",
-            }, "-=0.4");
+                stagger: 0.1,
+                duration: 1.2,
+                ease: "expo.out"
+            }, "-=0.6")
+            .from(".brand-info", {
+                opacity: 0,
+                y: 20,
+                duration: 0.8
+            }, "-=0.8");
 
             (menuRef.current as any).animation = tl;
         }, containerRef);
@@ -72,7 +67,7 @@ const Navbar = () => {
         const tl = (menuRef.current as any)?.animation;
         if (tl) {
             if (!isOpen) {
-                gsap.set(menuRef.current, { x: "100%", skewX: -10, opacity: 0 });
+                gsap.set(menuRef.current, { x: "100%", opacity: 0 });
                 tl.play();
             } else {
                 tl.reverse();
@@ -82,78 +77,93 @@ const Navbar = () => {
     };
 
     const navigateTo = (path?: string, id?: string, shouldToggle = true) => {
-        if (shouldToggle) {
-            toggleMenu();
-        }
+        if (shouldToggle) toggleMenu();
 
         setTimeout(() => {
             if (path) navigate(path);
-
             if (id && location.pathname === "/" && path === "/") {
                 const el = document.getElementById(id);
                 if (el) el.scrollIntoView({ behavior: "smooth" });
             } else {
                 window.scrollTo(0, 0);
             }
-        }, 600);
+        }, 800); // Slightly longer for smooth exit
     };
 
     return (
-        <div ref={containerRef}>
-            {/* 2. ANIMATED NAVBAR CONTAINER 
-               We use `motion.nav` to animate the Y position based on `isHidden`.
-            */}
+        <div ref={containerRef} style={{ fontFamily: "'Montserrat', sans-serif" }}>
             <motion.nav 
-                className="fixed top-0 left-0 w-full z-[100] flex justify-between items-center px-6 md:px-10 py-4 bg-transparent text-white"
+                className="fixed top-0 left-0 w-full z-[120] flex justify-between items-center px-6 md:px-10 py-4 bg-transparent text-white"
                 variants={{
-                    visible: { y: 0 },
-                    hidden: { y: "-100%" }, // Slide up out of view
+                    visible: { y: 0, opacity: 1 },
+                    hidden: { y: -20, opacity: 0 },
                 }}
                 animate={isHidden ? "hidden" : "visible"}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
+                transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
             >
-
                 {/* Logo */}
                 <motion.div
                     onClick={() => navigateTo("/", "home", false)}
-                    className="cursor-pointer z-[100]"
+                    className="cursor-pointer z-[130]"
                     whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                    {/* 3. RESPONSIVE LOGO SIZE: h-12 (48px) on mobile, h-20 (80px) on desktop */}
-                    <img src={logo} className="h-12 md:h-20 w-auto object-contain" alt="Logo" />
+                    <img src={logo} className="h-10 md:h-16 w-auto object-contain filter brightness-0 invert" alt="Energica Logo" />
                 </motion.div>
 
-                {/* Hamburger */}
+                {/* Tactical Hamburger Button */}
                 <motion.button
                     onClick={toggleMenu}
-                    className="z-[100] group flex flex-col gap-1.5 cursor-pointer p-2 bg-white/10 backdrop-blur-md rounded-lg border border-white/20"
+                    className={`z-[130] group flex flex-col justify-center items-center gap-1.5 cursor-pointer w-14 h-14 rounded-full shadow-2xl transition-colors duration-500 ${
+                        isOpen ? 'bg-white/10 backdrop-blur-xl' : 'bg-white'
+                    }`}
                 >
-                    <span className="w-8 h-[2px] bg-[#28a745]"></span>
-                    <span className="w-8 h-[2px] bg-[#28a745]"></span>
-                    <span className="w-8 h-[2px] bg-[#28a745]"></span>
+                    <div className="relative w-6 h-5">
+                        <span className={`absolute left-0 w-6 h-[2px] transition-all duration-500 ease-expo ${
+                            isOpen ? 'bg-white rotate-45 top-2' : 'bg-[#C80000] top-0'
+                        }`}></span>
+                        <span className={`absolute left-0 w-6 h-[2px] top-2 transition-all duration-300 ${
+                            isOpen ? 'bg-transparent opacity-0 scale-x-0' : 'bg-[#C80000]'
+                        }`}></span>
+                        <span className={`absolute left-0 w-6 h-[2px] transition-all duration-500 ease-expo ${
+                            isOpen ? 'bg-white -rotate-45 top-2' : 'bg-[#C80000] top-4'
+                        }`}></span>
+                    </div>
                 </motion.button>
             </motion.nav>
 
             {/* Full-screen menu */}
             <div
                 ref={menuRef}
-                className="fixed top-0 right-0 w-screen h-screen bg-[#0b0b0b] text-white z-[90] flex flex-col justify-center items-center opacity-0 translate-x-[100%]"
+                className="fixed top-0 right-0 w-screen h-screen bg-[#C80000] text-white z-[100] flex flex-col justify-center items-center invisible opacity-0 translate-x-full"
             >
-                <ul className="flex flex-col gap-3 w-full max-w-2xl px-10 md:px-20">
+                {/* Immersive Noise and Gradient */}
+                <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }}></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/40 pointer-events-none"></div>
+
+                <ul className="flex flex-col gap-2 w-full max-w-3xl px-10 md:px-20 relative z-10">
                     {navItems.map((item, idx) => (
-                        <li key={idx} className="overflow-hidden">
+                        <li key={idx} className="overflow-hidden py-1">
                             <motion.button
                                 onClick={() => navigateTo(item.path, item.id)}
-                                className="menu-link-item block w-full text-4xl md:text-5xl font-bold uppercase tracking-tighter text-left py-3 group relative"
+                                style={{ fontWeight: 900 }}
+                                className="menu-link-item block w-full text-4xl md:text-7xl font-black uppercase tracking-tighter text-left group relative italic"
                             >
-                                <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-[#28a745] group-hover:w-full transition-all duration-300"></span>
-                                <span className="relative text-white/90 group-hover:text-[#28a745] transition-colors duration-200">
+                                {/* Animated underline with elastic feel */}
+                                <span className="absolute left-0 bottom-0 h-[4px] w-0 bg-white transition-all duration-700 ease-[0.19,1,0.22,1] group-hover:w-full"></span>
+                                <span className="relative text-white group-hover:pl-6 transition-all duration-500 ease-out inline-block">
                                     {item.name}
                                 </span>
                             </motion.button>
                         </li>
                     ))}
                 </ul>
+
+                {/* Bottom Brand Info */}
+                <div className="brand-info absolute bottom-10 left-10 md:left-20 text-white/40 font-medium tracking-widest text-[11px] uppercase space-y-1">
+                    <p>© Energica Sustain Foundation // 2025</p>
+                    <div className="h-[1px] w-12 bg-white/20"></div>
+                </div>
             </div>
         </div>
     );

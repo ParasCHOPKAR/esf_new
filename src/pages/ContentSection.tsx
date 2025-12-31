@@ -45,9 +45,7 @@ const ContentSection = forwardRef<HTMLDivElement>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   
-  // Track the active image for Desktop Cursor
   const [cursorImg, setCursorImg] = useState(data[0].img);
-  // Track the active Item ID for Mobile Accordion
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useLayoutEffect(() => {
@@ -66,7 +64,7 @@ const ContentSection = forwardRef<HTMLDivElement>((props, ref) => {
         scrollTrigger: { trigger: containerRef.current, start: "top 75%" }
       });
 
-      // 3. Mouse Follower (DESKTOP ONLY)
+      // 3. Mouse Follower
       if (isDesktop && cursorRef.current) {
         gsap.set(cursorRef.current, { xPercent: -50, yPercent: -50 });
         const xTo = gsap.quickTo(cursorRef.current, "x", { duration: 0.3, ease: "power3" });
@@ -88,63 +86,52 @@ const ContentSection = forwardRef<HTMLDivElement>((props, ref) => {
     return () => ctx.revert();
   }, []);
 
-  // --- INTERACTION HANDLERS ---
-
-  // Desktop Hover
   const handleMouseEnter = (img: string, rowId: string) => {
     if (window.innerWidth > 768) {
       setCursorImg(img);
-      // On Desktop, hover acts as "active"
       setActiveId(rowId); 
       gsap.to(cursorRef.current, { scale: 1, opacity: 1, duration: 0.3 });
-      gsap.to(`.service-item-${rowId} .title`, { x: 20, color: "#28a745", duration: 0.3 });
+      gsap.to(`.service-item-${rowId} .title`, { x: 20, color: "#ffffff", duration: 0.3 });
       gsap.to(`.service-item-${rowId} .arrow`, { opacity: 1, x: 0, duration: 0.3 });
     }
   };
 
-  // Desktop Leave
   const handleMouseLeave = (rowId: string) => {
     if (window.innerWidth > 768) {
       setActiveId(null);
       gsap.to(cursorRef.current, { scale: 0, opacity: 0, duration: 0.3 });
-      gsap.to(`.service-item-${rowId} .title`, { x: 0, color: "black", duration: 0.3 });
+      gsap.to(`.service-item-${rowId} .title`, { x: 0, color: "rgba(255,255,255,0.9)", duration: 0.3 });
       gsap.to(`.service-item-${rowId} .arrow`, { opacity: 0, x: -20, duration: 0.3 });
     }
   };
 
-  // Mobile Click (Tap)
   const handleClick = (rowId: string) => {
     if (window.innerWidth <= 768) {
-      // Toggle logic: If clicking the open one, close it. Otherwise open new one.
       setActiveId(prev => prev === rowId ? null : rowId);
     }
   };
 
   return (
-    <div ref={ref} className="bg-white text-black min-h-screen relative py-12 md:py-20 overflow-hidden md:cursor-none">
+    // UPDATED: BRAND RED BACKGROUND
+    <div ref={ref} className="bg-[#C80000] text-white min-h-screen relative py-12 md:py-24 overflow-hidden md:cursor-none" style={{ fontFamily: "'Montserrat', sans-serif" }}>
       
-      {/* 1. FLOATING CURSOR IMAGE (DESKTOP ONLY - Hidden on Mobile) */}
+      {/* 1. FLOATING CURSOR IMAGE */}
       <div 
         ref={cursorRef}
-        className="hidden md:block absolute top-0 left-0 w-[280px] h-[180px] pointer-events-none z-10 rounded-xl overflow-hidden opacity-0 scale-0 shadow-2xl border-2 border-white/50"
+        className="hidden md:block absolute top-0 left-0 w-[320px] h-[200px] pointer-events-none z-50 rounded-xl overflow-hidden opacity-0 scale-0 shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-4 border-white"
       >
-        <img 
-          src={cursorImg} 
-          alt="Service Preview" 
-          className="w-full h-full object-cover" 
-        />
-        <div className="absolute inset-0 bg-black/10"></div>
+        <img src={cursorImg} alt="Service Preview" className="w-full h-full object-cover" />
       </div>
 
-      <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 relative">
+      <div ref={containerRef} className="max-w-7xl mx-auto px-6 md:px-10 relative">
         
         {/* HEADER */}
-        <div className="mb-12 md:mb-20 border-b border-gray-200 pb-6 md:pb-10 relative z-20">
-            <span className="text-[#28a745] font-mono tracking-widest text-xs md:text-sm uppercase font-bold block mb-2">
-                Our Expertise
+        <div className="mb-16 md:mb-24 border-b border-white/20 pb-10 relative z-20">
+            <span className="text-white font-mono tracking-[0.3em] text-xs md:text-sm uppercase font-black block mb-4 opacity-70">
+                // OUR EXPERTISE
             </span>
-            <h2 className="section-header-title text-[11vw] md:text-8xl font-bold uppercase tracking-tighter leading-[0.9] text-black will-change-transform break-words">
-                Advisory <span className="text-gray-300">Services</span>
+            <h2 className="section-header-title text-[10vw] md:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-white italic">
+                Advisory <span className="opacity-30 not-italic">Services</span>
             </h2>
         </div>
 
@@ -153,66 +140,69 @@ const ContentSection = forwardRef<HTMLDivElement>((props, ref) => {
             {data.map((item, idx) => (
                 <div 
                     key={idx}
-                    // Added onClick for Mobile Interaction
                     onClick={() => handleClick(idx.toString())} 
-                    className={`service-item service-item-${idx} group relative border-b border-gray-200 py-6 md:py-12 transition-colors duration-300
-                      ${activeId === idx.toString() ? 'bg-gray-50' : 'bg-transparent'} 
-                      hover:bg-transparent cursor-pointer`}
+                    className={`service-item service-item-${idx} group relative border-b border-white/10 py-8 md:py-14 transition-all duration-500
+                      ${activeId === idx.toString() ? 'bg-white/5' : 'bg-transparent'} 
+                      cursor-pointer`}
                     onMouseEnter={() => handleMouseEnter(item.img, idx.toString())}
                     onMouseLeave={() => handleMouseLeave(idx.toString())}
                 >
-                    <div className="flex flex-col md:flex-row items-start md:items-baseline justify-between gap-4 md:gap-6 relative z-30 pointer-events-none">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-30 pointer-events-none">
                         
                         {/* Number & Title */}
-                        <div className="flex items-baseline gap-4 md:gap-8 md:w-1/2 w-full">
-                            <span className={`font-mono text-lg md:text-xl transition-colors ${activeId === idx.toString() ? 'text-[#28a745]' : 'text-gray-400'}`}>/{item.id}</span>
-                            <h3 className={`title text-2xl sm:text-3xl md:text-5xl font-bold uppercase transition-all duration-300 drop-shadow-sm leading-tight
-                              ${activeId === idx.toString() ? 'text-[#28a745] translate-x-2' : 'text-black'}`}>
+                        <div className="flex items-center gap-6 md:gap-12 md:w-2/3 w-full">
+                            <span className={`font-mono text-lg md:text-2xl transition-opacity duration-300 ${activeId === idx.toString() ? 'opacity-100' : 'opacity-40'}`}>
+                                0{idx + 1}
+                            </span>
+                            <h3 className={`title text-3xl sm:text-4xl md:text-6xl font-black uppercase transition-all duration-500 italic tracking-tighter
+                              ${activeId === idx.toString() ? 'text-white translate-x-4' : 'text-white/80'}`}>
                                 {item.title}
                             </h3>
                         </div>
 
                         {/* Short Desc & Arrow */}
-                        <div className="flex items-center gap-4 md:w-1/2 justify-between w-full pl-10 md:pl-0">
-                            <span className="font-mono text-[10px] md:text-sm uppercase tracking-widest text-gray-500 font-semibold bg-white/80 md:backdrop-blur-md px-2 rounded">
+                        <div className="flex items-center gap-4 md:w-1/3 justify-between w-full pl-12 md:pl-0">
+                            <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-white font-bold bg-black/20 px-3 py-1 rounded-full border border-white/10">
                                 {item.short}
                             </span>
-                            {/* Mobile Indicator Arrow (Rotates when active) */}
-                            <span className={`md:hidden text-2xl transition-transform duration-300 ${activeId === idx.toString() ? 'rotate-90 text-[#28a745]' : 'text-gray-300'}`}>
-                              →
+                            <span className={`md:hidden text-2xl transition-transform duration-300 ${activeId === idx.toString() ? 'rotate-90' : ''}`}>
+                                →
                             </span>
-                            {/* Desktop Hover Arrow */}
-                            <span className="arrow text-[#28a745] text-2xl md:text-3xl opacity-0 transform -translate-x-4 transition-all hidden md:block">
+                            <span className="arrow text-white text-3xl md:text-4xl opacity-0 transform -translate-x-6 transition-all hidden md:block">
                                 ↗
                             </span>
                         </div>
                     </div>
 
-                    {/* Expandable Details + MOBILE IMAGE */}
+                    {/* Expandable Details */}
                     <div 
-                      className={`overflow-hidden transition-all duration-500 ease-in-out relative z-30 
-                      ${activeId === idx.toString() ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}`}
+                      className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] relative z-30 
+                      ${activeId === idx.toString() ? 'max-h-[800px] opacity-100 mt-8' : 'max-h-0 opacity-0 mt-0'}`}
                     >
-                        <div className="pt-2 md:pt-6 pl-0 md:pl-[120px] max-w-3xl">
-                            
-                            {/* --- MOBILE IMAGE (Visible only on small screens when active) --- */}
-                            <div className="block md:hidden w-full h-[200px] mb-4 rounded-lg overflow-hidden relative">
+                        <div className="pt-4 md:pt-8 pl-0 md:pl-24 max-w-4xl">
+                            {/* MOBILE IMAGE */}
+                            <div className="block md:hidden w-full h-[250px] mb-6 rounded-xl overflow-hidden shadow-xl border-2 border-white/20">
                               <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
-                              {/* Overlay to ensure text readability if needed */}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
 
-                            <p className="text-sm md:text-lg text-gray-800 leading-relaxed font-medium bg-white/60 md:backdrop-blur-sm p-2 rounded-lg inline-block">
+                            <p className="text-lg md:text-2xl text-white/90 leading-tight font-medium tracking-tight">
                                 {item.desc}
                             </p>
+                            
+                            <div className="mt-8 flex gap-4">
+                                <div className="h-[2px] w-12 bg-white self-center"></div>
+                                <span className="text-xs font-black tracking-widest uppercase">Explore protocol</span>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             ))}
         </div>
 
       </div>
+
+      {/* Background Ambience Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }}></div>
     </div>
   );
 });

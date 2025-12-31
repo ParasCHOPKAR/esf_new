@@ -38,18 +38,9 @@ const GallerySection = () => {
         return () => ctx.revert();
     }, []);
 
-    // --- UPDATED NAVIGATION HANDLER ---
     const handleNavigation = () => {
-        // 1. Navigate to the route
         navigate('/awarenesscompaign');
-        
-        // 2. FORCE Scroll to top instantly. 
-        // We use 'instant' behavior to prevent the browser from trying to smooth scroll 
-        // from the bottom (4000px) to the top, which causes the glitch.
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-        
-        // 3. Redundant check: Set it again after a tiny delay 
-        // This catches cases where React Router takes a millisecond to mount the new page.
         setTimeout(() => {
             window.scrollTo({ top: 0, left: 0, behavior: "instant" });
         }, 10);
@@ -87,11 +78,12 @@ const GallerySection = () => {
     ];
 
     return (
-        <div ref={component} className="bg-[#0b0b0b] text-white overflow-hidden">
+        /* UPDATED: ENERGICA BRAND RED BACKGROUND */
+        <div ref={component} className="bg-[#C80000] text-white overflow-hidden" style={{ fontFamily: "'Montserrat', sans-serif" }}>
 
-            <div className="py-12 md:py-20 px-4 md:px-10 text-center">
-                <p className="text-[#28a745] uppercase tracking-widest text-xs md:text-sm mb-2 font-bold">Government Initiatives</p>
-                <h2 className="text-3xl md:text-5xl font-bold uppercase">Key Solar Schemes</h2>
+            <div className="py-16 md:py-28 px-4 md:px-10 text-center relative z-10">
+                <p className="text-white font-mono tracking-[0.4em] text-xs md:text-sm mb-4 font-black opacity-70 uppercase">// Government Initiatives</p>
+                <h2 className="text-4xl md:text-7xl font-black uppercase italic tracking-tighter">Key Solar <span className="opacity-40 not-italic">Schemes</span></h2>
             </div>
 
             <div ref={slider} className="w-[400vw] h-[100dvh] flex flex-nowrap">
@@ -99,43 +91,46 @@ const GallerySection = () => {
                 {slides.map((slide, index) => (
                     <div
                         key={slide.id}
-                        className="gallery-panel w-screen h-[100dvh] flex-none flex items-center justify-center relative border-r border-gray-900"
+                        className="gallery-panel w-screen h-[100dvh] flex-none flex items-center justify-center relative border-r border-white/10"
                     >
-                        {/* Background Image */}
+                        {/* Background Image with Multiply Blend Mode to soak in the Brand Red */}
                         <div className="absolute inset-0 z-0">
                             <img
                                 src={slide.img}
                                 alt={slide.title}
-                                className="w-full h-full object-cover opacity-60 transition-transform duration-700 hover:scale-105"
+                                className="w-full h-full object-cover opacity-40 grayscale transition-transform duration-1000 hover:scale-110"
                                 loading="eager"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#C80000] via-transparent to-[#C80000]/30"></div>
                         </div>
 
-                        <div className="relative z-10 max-w-4xl px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 mt-10 md:mt-0">
+                        <div className="relative z-10 max-w-6xl px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10">
                             
-                            <div className="text-[25vw] md:text-[12rem] font-bold text-white/10 absolute -top-16 left-4 md:-top-40 md:left-0 select-none z-0">
+                            {/* Large Background Index Number */}
+                            <div className="text-[30vw] md:text-[15rem] font-black text-white/10 absolute -top-20 left-4 md:-top-56 md:left-0 select-none z-0 italic tracking-tighter">
                                 0{index + 1}
                             </div>
 
                             <div className="flex flex-col relative z-10 text-center md:text-left">
-                                <span className="text-[#28a745] font-mono tracking-widest mb-2 md:mb-4 font-bold text-xs md:text-base">
-                                    {slide.subtitle}
+                                <span className="text-white font-mono tracking-[0.3em] mb-4 font-black text-xs md:text-lg uppercase opacity-80">
+                                    // {slide.subtitle}
                                 </span>
                                 
-                                <h3 className="text-4xl sm:text-5xl md:text-8xl font-bold uppercase leading-none mb-4 md:mb-6">
+                                <h3 className="text-5xl sm:text-6xl md:text-[10rem] font-black uppercase italic leading-[0.8] mb-8 tracking-tighter">
                                     {slide.title}
                                 </h3>
                                 
-                                <p className="text-base md:text-2xl font-light text-gray-300 max-w-lg mx-auto md:mx-0">
+                                <p className="text-lg md:text-3xl font-medium text-white/90 max-w-2xl mx-auto md:mx-0 leading-tight tracking-tight">
                                     {slide.desc}
                                 </p>
                                 
                                 <button 
                                     onClick={handleNavigation}
-                                    className="mt-6 md:mt-8 px-6 py-2 md:px-8 md:py-3 border border-[#28a745] text-[#28a745] text-xs md:text-sm tracking-widest uppercase hover:bg-[#28a745] hover:text-white transition-colors w-max mx-auto md:mx-0"
+                                    className="mt-10 md:mt-12 group relative px-8 py-3 md:px-12 md:py-5 overflow-hidden border-2 border-white text-white text-xs md:text-sm font-black tracking-[0.2em] uppercase transition-all w-max mx-auto md:mx-0"
                                 >
-                                    Check Eligibility
+                                    <div className="absolute inset-0 bg-white translate-y-full transition-transform duration-300 group-hover:translate-y-0 -z-10"></div>
+                                    <span className="group-hover:text-[#C80000] transition-colors duration-300 italic">Check Eligibility ↗</span>
                                 </button>
                             </div>
                         </div>
@@ -143,6 +138,9 @@ const GallerySection = () => {
                 ))}
 
             </div>
+
+            {/* Background Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }}></div>
         </div>
     );
 };

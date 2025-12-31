@@ -1,23 +1,23 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-// 1. Import Link for navigation
+// 1. IMPORT YOUR LINK COMPONENT
 import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const AboutSection = () => {
-  const container = useRef(null);
-  const glowRef = useRef(null);
+  const container = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
 
-      // 1. Background Glow "Breathing" Animation
+      // 1. Background Glow "Breathing" Animation (Subtle White Glow)
       gsap.to(glowRef.current, {
-        scale: 1.2,
-        opacity: 0.4,
-        duration: 4,
+        scale: 1.3,
+        opacity: 0.15,
+        duration: 5,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut"
@@ -35,40 +35,41 @@ const AboutSection = () => {
       tl.from(".main-title", {
         y: 100,
         opacity: 0,
-        duration: 1,
+        duration: 1.2,
         ease: "power4.out"
       });
 
       // 3. Grid Items Stagger
       tl.from(".grid-item", {
-        y: 50,
+        y: 60,
         opacity: 0,
-        duration: 0.8,
+        duration: 1,
         stagger: 0.2,
-        ease: "power3.out"
-      }, "-=0.5");
+        ease: "expo.out"
+      }, "-=0.6");
 
-      // 4. Cool Line Expansion Animation (The Borders)
+      // 4. Cool Line Expansion Animation (White Borders)
       tl.fromTo(".expand-line",
         { width: 0 },
-        { width: "100%", duration: 1, ease: "expo.out", stagger: 0.2 }
-        , "-=0.5");
+        { width: "100%", duration: 1.5, ease: "expo.out", stagger: 0.2 }
+        , "-=0.8");
 
       // 5. Paragraph Fade In
       tl.from(".desc-text", {
         opacity: 0,
-        y: 20,
-        duration: 1,
-        stagger: 0.2
-      }, "-=0.8");
-
-      // 6. Button Fade In (Added this animation)
-      tl.from(".cta-button", {
         y: 30,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out"
+      }, "-=1");
+
+      // 6. Button Fade In
+      tl.from(".cta-button", {
+        y: 40,
         opacity: 0,
-        duration: 0.8,
+        duration: 1,
         ease: "power3.out"
-      }, "-=0.5");
+      }, "-=0.8");
 
     }, container);
 
@@ -76,57 +77,64 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <div ref={container} className="bg-[#0b0b0b] text-white min-h-[80vh] flex flex-col items-center justify-center px-6 md:px-20 py-20 relative overflow-hidden">
+    <div 
+        ref={container} 
+        /* UPDATED: ENERGICA BRAND RED BACKGROUND */
+        className="bg-[#C80000] text-white min-h-[90vh] flex flex-col items-center justify-center px-6 md:px-20 py-32 relative overflow-hidden"
+        style={{ fontFamily: "'Montserrat', sans-serif" }}
+    >
 
-      {/* Decorative Green Glow with Ref for Animation */}
+      {/* Subtle White Glow to create depth against Red */}
       <div
         ref={glowRef}
-        className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#28a745]/10 rounded-full blur-[120px] pointer-events-none"
+        className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-white/10 rounded-full blur-[150px] pointer-events-none"
       ></div>
 
-      {/* The main content wrapper is now centered using mx-auto and text-center */}
-      <div className="max-w-6xl z-10 relative text-center mx-auto">
-        <span className="main-title text-[#28a745] font-bold tracking-widest text-sm uppercase mb-4 block">
-          About Us
+      <div className="max-w-7xl z-10 relative text-center mx-auto">
+        
+        {/* Sub-label */}
+        <span className="main-title text-white font-mono tracking-[0.4em] text-xs md:text-sm uppercase mb-6 block font-black opacity-70">
+          // OUR MISSION
         </span>
 
-        <h2 className="main-title text-4xl md:text-6xl font-bold uppercase leading-tight mb-16 text-white">
+        {/* Heading: Montserrat Black */}
+        <h2 className="main-title text-4xl md:text-7xl font-black uppercase leading-[0.9] mb-24 text-white italic tracking-tighter">
           Driving Success Through <br />
-          <span className="text-gray-500">Innovation & Integrity.</span>
+          <span className="opacity-40 not-italic">Innovation & Integrity.</span>
         </h2>
 
-        {/* The grid container must NOT be text-center, but the grid items are left-aligned */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-left mb-16">
+        {/* Info Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 text-left mb-24">
 
           {/* Column 1: Who We Are */}
           <div className="grid-item">
-            <div className="w-fit mb-6">
-              <h3 className="text-2xl font-bold uppercase text-white mb-2">
+            <div className="w-full mb-8">
+              <h3 className="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight italic">
                 Who We Are
               </h3>
-              {/* Animated Line */}
-              <div className="expand-line h-[2px] bg-[#28a745] w-full"></div>
+              {/* Animated White Line */}
+              <div className="expand-line h-[3px] bg-white w-full opacity-100"></div>
             </div>
 
-            <p className="desc-text text-gray-400 leading-relaxed text-lg">
-              At <span className="text-white font-semibold">Energica Sustain Foundation</span>, we believe in a client-centric approach.
+            <p className="desc-text text-white/80 leading-relaxed text-lg font-medium">
+              At <span className="text-white font-black underline decoration-2 underline-offset-4">Energica Sustain Foundation</span>, we believe in a client-centric approach.
               <br /><br />
-              Our team of seasoned experts combines industry knowledge with innovative thinking to deliver solutions that drive success. We are committed to maintaining the highest standards of professionalism and integrity.
+              Our team of seasoned experts combines industry knowledge with innovative thinking to deliver solutions that drive success. We are committed to maintaining the highest standards of professionalism.
             </p>
           </div>
 
           {/* Column 2: What We Do */}
           <div className="grid-item">
-            <div className="w-fit mb-6">
-              <h3 className="text-2xl font-bold uppercase text-white mb-2">
+            <div className="w-full mb-8">
+              <h3 className="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight italic">
                 What We Do
               </h3>
-              {/* Animated Line */}
-              <div className="expand-line h-[2px] bg-[#28a745] w-full"></div>
+              {/* Animated White Line */}
+              <div className="expand-line h-[3px] bg-white w-full opacity-100"></div>
             </div>
 
-            <p className="desc-text text-gray-400 leading-relaxed text-lg">
-              We assess the technical aspects of projects to ensure they meet investment criteria. We evaluate feasibility, performance risks, and compliance with standards.
+            <p className="desc-text text-white/80 leading-relaxed text-lg font-medium">
+              We assess the technical aspects of projects to ensure they meet investment criteria. We evaluate feasibility, performance risks, and compliance with global standards.
               <br /><br />
               By providing critical insights, we help lenders and clients make informed financing decisions and manage risks effectively throughout the project lifecycle.
             </p>
@@ -134,25 +142,29 @@ const AboutSection = () => {
 
         </div>
 
-        {/* --- NEW BUTTON --- */}
+        {/* --- BRAND BUTTON --- */}
         <div className="cta-button flex justify-center">
           <Link 
             to="/about" 
-            className="group relative overflow-hidden rounded-full border border-[#28a745] px-10 py-4 font-mono text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:bg-[#28a745]"
+            className="group relative overflow-hidden rounded-full border-2 border-white px-12 py-5 font-black uppercase tracking-[0.2em] text-sm transition-all duration-500 hover:border-white"
           >
-            {/* 1. Initial Text (Slides up on hover) */}
-            <span className="inline-block text-[#28a745] transition-transform duration-300 group-hover:-translate-y-[150%] group-hover:text-black">
-              Get to know us
+            {/* 1. Initial Text */}
+            <span className="inline-block text-white transition-transform duration-500 group-hover:-translate-y-[160%]">
+              Explore Our Protocol
             </span>
 
-            {/* 2. Hover Text (Slides in from bottom) */}
-            <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center text-white translate-y-[150%] transition-transform duration-300 group-hover:translate-y-0">
-              About Us ↗
+            {/* 2. Hover Fill & Text */}
+            <div className="absolute inset-0 bg-white translate-y-[100%] transition-transform duration-500 group-hover:translate-y-0"></div>
+            <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center text-[#C80000] font-black translate-y-[160%] transition-transform duration-500 group-hover:translate-y-0 italic">
+              About Energica ↗
             </span>
           </Link>
         </div>
 
       </div>
+
+      {/* Background Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }}></div>
     </div>
   );
 };

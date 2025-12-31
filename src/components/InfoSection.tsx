@@ -7,41 +7,41 @@ gsap.registerPlugin(ScrollTrigger);
 const InfoSection = () => {
   const container = useRef<HTMLDivElement>(null);
   
-  // The specific text from the PDF 
+  // The specific brand-aligned insight text
   const text = "A lender’s technical advisor plays a pivotal role in bridging the gap between technical feasibility and financial viability, ensuring that investments are sound and well-supported.";
   
-  // Split text into words for the Rejouice-style animation
+  // Split text into words for the staggered reveal animation
   const words = text.split(" ");
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       
-      // Target all elements with class 'word'
+      // Target all elements with class 'word' for the Rejouice-style reveal
       gsap.from(".word", {
-        opacity: 0.1, // Start dim, not invisible (premium feel)
-        y: 50,        // Slide up from below
-        rotationX: -90, // slight 3D rotation for style
-        filter: "blur(10px)", // Start blurry
-        duration: 1.2,
-        stagger: 0.05, // The delay between each word (Rejouice effect)
+        opacity: 0,
+        y: 40,        // Slide up from below
+        rotationX: -45, // Subtle 3D tilt
+        filter: "blur(12px)", // Start blurry for a cinematic entrance
+        duration: 1.5,
+        stagger: 0.08, // Stagger delay for the fluid reading effect
         ease: "power4.out",
         scrollTrigger: {
           trigger: container.current,
-          start: "top 70%", 
+          start: "top 80%", 
           end: "bottom 80%",
-          scrub: 1, // Connect animation to scroll bar movement (smoother)
+          scrub: 1.5, // Linked to scroll for a premium, controlled feel
         }
       });
 
-      // Animate the divider line
-      gsap.from(".divider", {
+      // Animate the decorative divider lines
+      gsap.from(".divider-line", {
         scaleX: 0,
         opacity: 0,
-        duration: 1.5,
+        duration: 2,
         ease: "expo.out",
         scrollTrigger: {
             trigger: container.current,
-            start: "top 70%"
+            start: "top 75%"
         }
       });
 
@@ -50,41 +50,39 @@ const InfoSection = () => {
     return () => ctx.revert();
   }, []);
 
-  // Function to determine if a word should be highlighted green
-  const isHighlight = (word: string) => {
-    const cleanWord = word.replace(/[.,]/g, "").toLowerCase();
-    const highlights = ["pivotal", "feasibility", "viability", "sound", "investments"];
-    return highlights.includes(cleanWord);
-  }
-
   return (
     <div 
       ref={container} 
-      className="bg-[#0b0b0b] text-white min-h-[60vh] w-full flex flex-col justify-center items-center px-6 md:px-32 py-32 border-t border-gray-900 relative overflow-hidden"
+      /* UPDATED: ENERGICA BRAND RED BACKGROUND */
+      className="bg-[#C80000] text-white min-h-[70vh] w-full flex flex-col justify-center items-center px-6 md:px-32 py-40 relative overflow-hidden"
+      style={{ fontFamily: "'Montserrat', sans-serif" }}
     >
+      {/* Background Noise Texture for a premium editorial look */}
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }}></div>
+
       <div className="max-w-6xl text-center z-10 relative">
         
-        {/* Label */}
-        <div className="mb-12 overflow-hidden">
-            <span className="divider inline-block text-[#28a745] font-mono tracking-[0.3em] text-xs uppercase">
-                Expert Insight
+        {/* Top Label */}
+        <div className="mb-14 overflow-hidden">
+            <span className="divider-line inline-block text-white font-mono tracking-[0.4em] text-xs uppercase font-black opacity-60">
+                // STRATEGIC INSIGHT
             </span>
         </div>
 
-        {/* The Rejouice Text Block */}
-        <p className="text-3xl md:text-5xl lg:text-6xl font-medium leading-[1.2] md:leading-[1.3] text-white tracking-tight flex flex-wrap justify-center gap-x-3 gap-y-2">
+        {/* The Animated Text Block: Montserrat Black Italic */}
+        <p className="text-3xl md:text-5xl lg:text-7xl font-black italic leading-[1.1] text-white tracking-tighter flex flex-wrap justify-center gap-x-4 gap-y-3">
           {words.map((word, index) => (
             <span 
                 key={index} 
-                className={`word inline-block transform-gpu ${isHighlight(word) ? 'text-[#28a745]' : 'text-gray-200'}`}
+                className="word inline-block transform-gpu will-change-[transform,opacity,filter]"
             >
               {word}
             </span>
           ))}
         </p>
 
-        {/* Bottom decorative line */}
-        <div className="divider w-32 h-[2px] bg-[#28a745] mx-auto mt-16 rounded-full"></div>
+        {/* Bottom decorative brand line */}
+        <div className="divider-line w-24 h-[4px] bg-white mx-auto mt-20 rounded-full"></div>
 
       </div>
     </div>
