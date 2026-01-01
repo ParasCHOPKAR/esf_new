@@ -37,15 +37,14 @@ const FAQSection = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".faq-reveal", {
-        y: 60,
+      gsap.from(".faq-content", {
+        y: 50,
         opacity: 0,
-        duration: 1.2,
+        duration: 1,
         stagger: 0.2,
-        ease: "power4.out",
         scrollTrigger: {
           trigger: container.current,
-          start: "top 75%",
+          start: "top 70%",
         }
       });
     }, container);
@@ -53,59 +52,55 @@ const FAQSection = () => {
   }, []);
 
   return (
-    /* UPDATED: ENERGICA BRAND RED BACKGROUND */
-    <div 
-      ref={container} 
-      className="bg-[#C80000] text-white min-h-screen w-full relative z-10 flex flex-col items-center justify-center p-6 md:p-20 overflow-hidden"
-      style={{ fontFamily: "'Montserrat', sans-serif" }}
-    >
-      {/* Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }} />
-
-      <div className="w-full max-w-7xl flex flex-col lg:flex-row gap-16 lg:gap-32 relative z-10">
+    <div ref={container} className="bg-white text-gray-800 min-h-screen w-screen relative z-10 flex flex-col items-center justify-center p-6 md:p-20 border-t border-gray-100">
+      
+      <div className="w-full max-w-7xl flex flex-col lg:flex-row gap-16 lg:gap-24">
         
-        {/* LEFT SIDE: Brand Title */}
-        <div className="lg:w-1/3 faq-reveal">
+        {/* LEFT SIDE: Title & Desc */}
+        <div className="lg:w-1/3 faq-content">
             <div className="sticky top-32">
-                <span className="font-mono tracking-[0.4em] text-xs uppercase font-black opacity-60 mb-6 block">
-                    // KNOWLEDGE BASE
-                </span>
-                <h2 className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-[0.9] mb-10">
-                    Questions <br/> <span className="opacity-40 not-italic font-bold">Uncovered</span>
-                </h2>
-                <p className="text-white/80 text-xl font-medium leading-tight max-w-sm">
-                    Anticipating your needs. We provide the technical clarity required before you take the next step in your energy transition.
+                {/* Updated to text-gray-800 */}
+<h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-tight mb-8">
+  <span className="text-gray-500">The Questions You</span>{' '}
+  <span className="text-[#C80000]">Haven’t Asked</span> <br />
+  <span className="text-gray-700">Yet</span>
+</h2>
+
+                <p className="text-gray-500 text-lg leading-relaxed">
+                  Before you even ask, we anticipate what’s on your mind. Here are answers to the thoughts most visitors have before stepping deeper into the experience.
                 </p>
             </div>
         </div>
 
         {/* RIGHT SIDE: Accordion List */}
-        <div className="lg:w-2/3 faq-reveal w-full">
-            <div className="flex flex-col border-t-2 border-white">
+        <div className="lg:w-2/3 faq-content w-full">
+            <div className="flex flex-col border-t border-gray-200">
                 {faqData.map((item, index) => (
-                    <div key={index} className="border-b border-white/20">
+                    <div key={index} className="border-b border-gray-200">
                         {/* Question Header */}
                         <button 
                             onClick={() => toggleAccordion(index)}
-                            className={`w-full py-10 px-4 text-left flex justify-between items-center transition-all duration-500 ${activeIndex === index ? 'bg-black/10' : 'hover:bg-white/5'}`}
+                            className={`w-full py-8 px-6 text-left flex justify-between items-center transition-colors duration-300 ${activeIndex === index ? 'bg-gray-50' : 'hover:bg-gray-50/50'}`}
                         >
-                            <h3 className={`text-xl md:text-3xl font-black uppercase tracking-tighter transition-all duration-500 ${activeIndex === index ? 'italic pl-4' : ''}`}>
+                            {/* Updated inactive state to text-gray-700 */}
+                            <h3 className={`text-xl md:text-2xl font-bold pr-8 transition-colors ${activeIndex === index ? 'text-[#C80000]' : 'text-gray-700'}`}>
                                 {item.question}
                             </h3>
                             
-                            {/* Animated Plus/Close Icon */}
-                            <div className="relative w-8 h-8 flex-shrink-0 ml-4">
-                                <span className={`absolute top-1/2 left-0 w-8 h-[3px] bg-white transition-transform duration-500 ${activeIndex === index ? 'rotate-45' : ''}`}></span>
-                                <span className={`absolute top-1/2 left-0 w-8 h-[3px] bg-white transition-transform duration-500 ${activeIndex === index ? '-rotate-45' : 'rotate-90'}`}></span>
+                            {/* The + / x Icon */}
+                            <div className="relative w-6 h-6 flex-shrink-0">
+                                {/* Updated bar backgrounds to bg-gray-400 */}
+                                <span className={`absolute top-1/2 left-0 w-6 h-[2px] bg-gray-400 transition-transform duration-300 ${activeIndex === index ? 'rotate-45 bg-[#C80000]' : ''}`}></span>
+                                <span className={`absolute top-1/2 left-0 w-6 h-[2px] bg-gray-400 transition-transform duration-300 ${activeIndex === index ? '-rotate-45 bg-[#C80000]' : 'rotate-90'}`}></span>
                             </div>
                         </button>
 
-                        {/* Answer Body */}
+                        {/* Answer Body (Animated Height) */}
                         <div 
-                            className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${activeIndex === index ? 'max-h-[300px] opacity-100 mb-8' : 'max-h-0 opacity-0'}`}
+                            className={`overflow-hidden transition-all duration-500 ease-in-out ${activeIndex === index ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}
                         >
-                            <div className="px-6 py-4 bg-black/5 rounded-xl border-l-4 border-white mx-4">
-                                <p className="text-white text-lg md:text-2xl font-medium leading-snug">
+                            <div className="p-6 pt-0 bg-gray-50">
+                                <p className="text-gray-500 text-lg leading-relaxed">
                                     {item.answer}
                                 </p>
                             </div>

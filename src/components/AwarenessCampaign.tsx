@@ -6,97 +6,96 @@ import { QRCodeCanvas } from "qrcode.react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- DATA SOURCE ---
+// --- COMPLETED DATA SOURCE ---
 const policies = [
   {
     id: "01",
     title: "PM Surya Ghar",
     subtitle: "Muft Bijli Yojana",
-    intro: "A flagship scheme targeting 1 crore households to provide free electricity...",
+    intro: "A flagship scheme targeting 1 crore households to provide up to 300 units of free electricity monthly through rooftop solar installations.",
     benefits: [
-      "Subsidy of ₹78,000 to ₹1,18,000",
-      "Free electricity up to 300 units/month",
-      "Reduced carbon footprint",
+      "Subsidy of ₹30,000 per kW up to 2 kW",
+      "Additional ₹18,000 per kW for 3 kW",
+      "Total subsidy capped at ₹78,000",
+      "Zero cost electricity for up to 300 units"
     ],
-    eligibility: "Residential consumers only. Must own the roof rights.",
-    formLink:
-      "https://docs.google.com/forms/d/e/1FAIpQLSdqPUWgWCrKXsEG2D86Lv6zbb1Pc0quk6i3kxsOJLOX4VOaCg/viewform",
-    accent: "#28a745",
+    eligibility: "Indian citizens with a valid electricity connection and available roof space. Specifically targets residential segments.",
+    formLink: "https://pmsuryaghar.gov.in/",
+    accent: "#C80000",
   },
   {
     id: "02",
     title: "PM KUSUM",
     subtitle: "Solar for Farmers",
-    intro: "Promotes solar-powered agriculture by supporting farmers with solar pumps...",
+    intro: "The Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan ensures energy security for farmers and de-dieselizes the farm sector.",
     benefits: [
-      "90% subsidy on solar pumps",
-      "Diesel-free reliable irrigation",
-      "Income from selling surplus power",
+      "60% subsidy on standalone solar pumps",
+      "30% loan availability from banks",
+      "Farmer only pays 10% of total cost",
+      "Sell surplus power to DISCOMs for income"
     ],
-    eligibility: "Farmers, cooperatives, and panchayats with agricultural land.",
-    formLink:
-      "https://docs.google.com/forms/d/e/1FAIpQLSeNusoJ6aF1Te3F5yse9obpTqXQnH239utog_5z2Zx2NiitSw/viewform",
+    eligibility: "Individual farmers, Water User Associations, and Farmer Producer Organizations (FPOs) with cultivable land.",
+    formLink: "https://pmkusum.mnre.gov.in/",
     accent: "#eab308",
   },
   {
     id: "03",
     title: "SMART Program",
     subtitle: "Community Empowerment",
-    intro: "Focused on making economically weaker and BPL households self-reliant...",
+    intro: "Specifically designed for BPL and EWS households to reduce energy poverty through high-subsidy micro-solar deployments.",
     benefits: [
       "Up to 95% Subsidy for BPL households",
-      "Up to 80% Subsidy for General Category (EWS)",
-      "Promotes local solar manufacturing",
+      "Covers 1kW to 2kW residential systems",
+      "Community-led maintenance models",
+      "Local employment in solar assembly"
     ],
-    eligibility: "Monthly consumption ≤ 100 units.",
-    formLink:
-      "https://docs.google.com/forms/d/e/1FAIpQLSewTuhnj135QhGgx6nOYtvG2lUn8vycPUh3YeVR3QTfQxiPnA/viewform",
+    eligibility: "Valid BPL card holders or individuals with annual income below ₹2.5 Lakhs. Monthly consumption must be ≤ 100 units.",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSewTuhnj135QhGgx6nOYtvG2lUn8vycPUh3YeVR3QTfQxiPnA/viewform",
     accent: "#3b82f6",
   },
   {
     id: "04",
     title: "Green Open Access",
     subtitle: "Industrial Power",
-    intro: "Enables industries and commercial users to procure renewable power...",
+    intro: "Allows small and large scale industries to bypass local DISCOM monopolies and buy cheaper renewable energy directly from generators.",
     benefits: [
-      "Lower electricity bills",
-      "100% Renewable Sourcing",
-      "No capacity limit sanctions",
+      "Reduced per-unit cost for large industries",
+      "Banking facilities for renewable power",
+      "100% Renewable Purchase Obligation (RPO) compliance",
+      "No capacity limit sanctions for green energy"
     ],
-    eligibility: "Consumers with contracted demand > 100 kW.",
-    formLink:
-      "https://docs.google.com/forms/d/e/1FAIpQLSes5Y6U6Jii9LBlmChhQydkgXGEa2ud4oN39VrbjxBDM-1ZNA/viewform",
+    eligibility: "Commercial and Industrial consumers with a sanctioned or contracted load of 100 kW or above.",
+    formLink: "https://posoco.in/green-open-access/",
     accent: "#10b981",
   },
   {
     id: "05",
     title: "Virtual Net Metering",
     subtitle: "Shared Generation",
-    intro: "Allows multiple consumers to share generation from a single solar plant...",
+    intro: "Perfect for high-rises where roof space is small but consumers are many. Generation from one plant is credited to multiple meters.",
     benefits: [
-      "Maximizes limited roof space",
-      "Shared savings for multi-storey buildings",
-      "Supports larger central solar systems",
+      "Benefit of solar for apartment owners",
+      "Solar credits for those without personal roofs",
+      "Pro-rata distribution of savings",
+      "Lower maintenance cost per household"
     ],
-    eligibility: "Residential/Commercial units within same DISCOM area.",
-    formLink:
-      "https://docs.google.com/forms/d/e/1FAIpQLSebn5m1sdE7hqOGuoZ7nfqpUlFDt52uYvNo_ZmEKgdq918WBA/viewform",
+    eligibility: "Consumers living in multi-storey buildings or housing societies within the same DISCOM jurisdiction.",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSebn5m1sdE7hqOGuoZ7nfqpUlFDt52uYvNo_ZmEKgdq918WBA/viewform",
     accent: "#8b5cf6",
   },
   {
     id: "06",
     title: "Group Net Metering",
     subtitle: "Enterprise Efficiency",
-    intro: "Allows organizations with multiple connections to offset consumption...",
+    intro: "Allows entities with multiple branches to install a large plant at one location and adjust production against bills of other locations.",
     benefits: [
-      "Centralized solar generation",
-      "Offsets power across multiple locations",
-      "Simplifies billing and management",
+      "Centralized plant management",
+      "Offset bills of city branches using rural roofs",
+      "Maximize large-scale factory roof ROI",
+      "Unified billing for government/corporate bodies"
     ],
-    eligibility:
-      "Consumers with multiple connections in the same distribution zone.",
-    formLink:
-      "https://docs.google.com/forms/d/e/1FAIpQLSdRNdPd-mskf94i2AJzVEBxzUWHeouXBOLbwPoNPeAuFyWeSQ/viewform",
+    eligibility: "Legal entities (Trusts, Schools, Corps, Govt) with multiple electricity connections under the same DISCOM.",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSdRNdPd-mskf94i2AJzVEBxzUWHeouXBOLbwPoNPeAuFyWeSQ/viewform",
     accent: "#f43f5e",
   },
 ];
@@ -110,13 +109,13 @@ const AwarenessCampaign = () => {
       gsap.utils.toArray(".policy-card").forEach((card: any) => {
         ScrollTrigger.create({
           trigger: card,
-          start: "top top",
+          start: "top 10%",
           end: "bottom top",
           scrub: true,
           onUpdate: (self) => {
             gsap.to(card, {
               scale: 1 - self.progress * 0.05,
-              filter: `brightness(${1 - self.progress * 0.3})`,
+              filter: `brightness(${1 - self.progress * 0.05})`,
             });
           },
         });
@@ -128,66 +127,100 @@ const AwarenessCampaign = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=500",
+          end: "+=400",
           scrub: true,
         },
       });
-    });
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={containerRef} className="bg-[#0b0b0b] text-white min-h-screen">
-      <div className="h-[60vh] flex items-center justify-center text-center">
+    <div ref={containerRef} className="bg-white text-gray-900 min-h-screen font-sans">
+      {/* HEADER SECTION */}
+      <div className="h-[60vh] flex flex-col items-center justify-center text-center px-6">
         <div ref={titleRef}>
-          <span className="text-[#28a745] tracking-[0.3em] text-sm font-bold block mb-4">
-            POLICY & AWARENESS
+          <span className="text-[#C80000] tracking-[0.4em] text-xs md:text-sm font-black block mb-4 uppercase">
+            // Policy & Awareness
           </span>
-          <h1 className="text-5xl md:text-8xl font-black">
-            Government <br />
-            <span className="text-gray-600">Initiatives</span>
+          <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-none">
+            GOVERNMENT<br />
+            <span className="text-gray-200">INITIATIVES</span>
           </h1>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 pb-20">
+      {/* CARDS SECTION */}
+      <div className="max-w-5xl mx-auto px-4 pb-40">
         {policies.map((policy, i) => (
-          <div key={i} className="policy-card sticky top-24 mb-10">
-            <motion.div className="bg-[#121212] rounded-3xl border border-white/10 p-10">
-              <div className="grid md:grid-cols-12 gap-8">
+          <div key={i} className="policy-card sticky top-32 mb-16">
+            <motion.div 
+              className="bg-white rounded-[2rem] border border-gray-100 p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.05)]"
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <div className="grid md:grid-cols-12 gap-10">
+                
+                {/* Left Side: Content */}
                 <div className="md:col-span-7">
-                  <h2 className="text-4xl font-black mb-4">{policy.title}</h2>
-                  <p className="text-gray-300 mb-6">{policy.intro}</p>
-                  <p className="text-sm text-gray-400">
-                    <strong>Eligibility:</strong> {policy.eligibility}
+                  <div className="flex items-center gap-4 mb-6">
+                    <span className="font-mono text-xl text-[#C80000] font-bold">/{policy.id}</span>
+                    <span className="h-[1px] w-12 bg-gray-200"></span>
+                    <span className="uppercase text-xs tracking-widest font-bold text-gray-400">{policy.subtitle}</span>
+                  </div>
+                  
+                  <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight text-gray-900 leading-none">
+                    {policy.title}
+                  </h2>
+                  
+                  <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                    {policy.intro}
                   </p>
+                  
+                  <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                    <p className="text-sm leading-relaxed">
+                      <strong className="text-gray-900 block mb-1 uppercase tracking-tighter">Eligibility Requirements:</strong> 
+                      <span className="text-gray-500 font-medium">{policy.eligibility}</span>
+                    </p>
+                  </div>
                 </div>
 
+                {/* Right Side: Benefits & CTA */}
                 <div className="md:col-span-5 flex flex-col justify-between">
-                  <ul className="space-y-3">
-                    {policy.benefits.map((b, idx) => (
-                      <li key={idx} className="text-gray-400 text-sm">
-                        ✓ {b}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* QR CODE */}
-                  <div className="flex justify-center my-6">
-                    <div className="bg-white p-2 rounded-lg">
-                      <QRCodeCanvas value={policy.formLink} size={90} />
-                    </div>
+                  <div className="mb-8">
+                    <h4 className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-6">Key Benefits</h4>
+                    <ul className="space-y-4">
+                      {policy.benefits.map((b, idx) => (
+                        <li key={idx} className="text-gray-700 text-sm font-bold flex items-start gap-3">
+                          <span className="text-[#C80000]">●</span>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  <a
-                    href={policy.formLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="bg-white text-black font-bold py-3 text-center rounded-md hover:bg-[#28a745] hover:text-white transition"
-                  >
-                    Check Eligibility ↗
-                  </a>
+                  <div className="flex flex-col items-center md:items-stretch">
+                    {/* QR CODE */}
+                    <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 mb-6 flex items-center justify-center gap-4">
+                        <div className="bg-white p-2 rounded-lg shadow-sm">
+                            <QRCodeCanvas value={policy.formLink} size={80} level="H" />
+                        </div>
+                        <p className="text-[10px] leading-tight text-gray-400 font-bold uppercase tracking-widest">
+                            Scan to access <br/> official portal
+                        </p>
+                    </div>
+
+                    <a
+                      href={policy.formLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full bg-[#C80000] text-white font-black py-5 text-center rounded-2xl hover:bg-gray-900 transition-all duration-300 shadow-xl shadow-red-100 uppercase tracking-widest text-xs"
+                    >
+                      Verify Eligibility ↗
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>

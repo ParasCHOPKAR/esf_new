@@ -78,59 +78,63 @@ const GallerySection = () => {
     ];
 
     return (
-        /* UPDATED: ENERGICA BRAND RED BACKGROUND */
-        <div ref={component} className="bg-[#C80000] text-white overflow-hidden" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+        <div ref={component} className="bg-[white] text-white overflow-hidden">
 
-            <div className="py-16 md:py-28 px-4 md:px-10 text-center relative z-10">
-                <p className="text-white font-mono tracking-[0.4em] text-xs md:text-sm mb-4 font-black opacity-70 uppercase">// Government Initiatives</p>
-                <h2 className="text-4xl md:text-7xl font-black uppercase italic tracking-tighter">Key Solar <span className="opacity-40 not-italic">Schemes</span></h2>
-            </div>
+<div className="py-12 md:py-20 px-4 md:px-10 text-center bg-white">
+  <p className="text-[#C80000]/70 uppercase tracking-widest text-xs md:text-sm mb-2 font-bold">
+    Government Initiatives
+  </p>
+
+  <h2 className="text-[#C80000] text-3xl md:text-5xl font-black uppercase tracking-tighter">
+    Key Solar Schemes
+  </h2>
+</div>
+
 
             <div ref={slider} className="w-[400vw] h-[100dvh] flex flex-nowrap">
 
                 {slides.map((slide, index) => (
                     <div
                         key={slide.id}
-                        className="gallery-panel w-screen h-[100dvh] flex-none flex items-center justify-center relative border-r border-white/10"
+                        className="gallery-panel w-screen h-[100dvh] flex-none flex items-center justify-center relative border-r border-white/10 bg-[#C80000]"
                     >
-                        {/* Background Image with Multiply Blend Mode to soak in the Brand Red */}
+                        {/* Background Image - Reduced blurriness by increasing opacity */}
                         <div className="absolute inset-0 z-0">
                             <img
                                 src={slide.img}
                                 alt={slide.title}
-                                className="w-full h-full object-cover opacity-40 grayscale transition-transform duration-1000 hover:scale-110"
+                                className="w-full h-full object-cover opacity-[3.0] transition-transform duration-700 hover:scale-105"
                                 loading="eager"
                             />
-                            {/* Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#C80000] via-transparent to-[#C80000]/30"></div>
+                            {/* Gradient adjusted for red theme */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#C80000] via-[#C80000]/40 to-transparent"></div>
                         </div>
 
-                        <div className="relative z-10 max-w-6xl px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                        <div className="relative z-10 max-w-4xl px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 mt-10 md:mt-0">
                             
-                            {/* Large Background Index Number */}
-                            <div className="text-[30vw] md:text-[15rem] font-black text-white/10 absolute -top-20 left-4 md:-top-56 md:left-0 select-none z-0 italic tracking-tighter">
+                            {/* Big background number */}
+                            <div className="text-[25vw] md:text-[12rem] font-black text-white/10 absolute -top-16 left-4 md:-top-40 md:left-0 select-none z-0">
                                 0{index + 1}
                             </div>
 
                             <div className="flex flex-col relative z-10 text-center md:text-left">
-                                <span className="text-white font-mono tracking-[0.3em] mb-4 font-black text-xs md:text-lg uppercase opacity-80">
-                                    // {slide.subtitle}
+                                <span className="text-white font-mono tracking-widest mb-2 md:mb-4 font-bold text-xs md:text-base bg-black/20 px-3 py-1 w-max mx-auto md:mx-0 rounded">
+                                    {slide.subtitle}
                                 </span>
                                 
-                                <h3 className="text-5xl sm:text-6xl md:text-[10rem] font-black uppercase italic leading-[0.8] mb-8 tracking-tighter">
+                                <h3 className="text-4xl sm:text-5xl md:text-8xl font-black uppercase leading-[0.9] mb-4 md:mb-6 tracking-tighter drop-shadow-2xl">
                                     {slide.title}
                                 </h3>
                                 
-                                <p className="text-lg md:text-3xl font-medium text-white/90 max-w-2xl mx-auto md:mx-0 leading-tight tracking-tight">
+                                <p className="text-base md:text-2xl font-medium text-white/90 max-w-lg mx-auto md:mx-0 leading-tight">
                                     {slide.desc}
                                 </p>
                                 
                                 <button 
                                     onClick={handleNavigation}
-                                    className="mt-10 md:mt-12 group relative px-8 py-3 md:px-12 md:py-5 overflow-hidden border-2 border-white text-white text-xs md:text-sm font-black tracking-[0.2em] uppercase transition-all w-max mx-auto md:mx-0"
+                                    className="mt-6 md:mt-8 px-6 py-2 md:px-8 md:py-3 border-2 border-white text-white text-xs md:text-sm tracking-widest uppercase font-black hover:bg-white hover:text-[#C80000] transition-all duration-300 w-max mx-auto md:mx-0"
                                 >
-                                    <div className="absolute inset-0 bg-white translate-y-full transition-transform duration-300 group-hover:translate-y-0 -z-10"></div>
-                                    <span className="group-hover:text-[#C80000] transition-colors duration-300 italic">Check Eligibility ↗</span>
+                                    Check Eligibility
                                 </button>
                             </div>
                         </div>
@@ -138,9 +142,6 @@ const GallerySection = () => {
                 ))}
 
             </div>
-
-            {/* Background Texture Overlay */}
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }}></div>
         </div>
     );
 };

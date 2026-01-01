@@ -17,11 +17,20 @@ const Home = () => {
         <div id="home">
             <HeroSection/>
         </div>
-        {/* TRAINING / CAPACITY BUILDING */}
+
+
+             {/* SCHEMES (Horizontal Scroll) */}
+        <div id="schemes">
+            <GallerySection />
+        </div>
+   
         
 
         {/* IMPACT STRIP */}
         <MarqueeSection />
+
+
+        
         <div id="tech">
             <TechSection/>
         </div>
@@ -33,10 +42,7 @@ const Home = () => {
             <AboutSection/>
         </div>
 
-        {/* SCHEMES (Horizontal Scroll) */}
-        <div id="schemes">
-            <GallerySection />
-        </div>
+   
 
         <FAQSection/>
 
