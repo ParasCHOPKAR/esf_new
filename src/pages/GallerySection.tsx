@@ -78,17 +78,17 @@ const GallerySection = () => {
     ];
 
     return (
-        <div ref={component} className="bg-[white] text-white overflow-hidden">
+        <div ref={component} className="bg-white text-white overflow-hidden">
 
-<div className="py-12 md:py-20 px-4 md:px-10 text-center bg-white">
-  <p className="text-[#C80000]/70 uppercase tracking-widest text-xs md:text-sm mb-2 font-bold">
-    Government Initiatives
-  </p>
+            <div className="py-12 md:py-20 px-4 md:px-10 text-center bg-white">
+              <p className="text-[#C80000]/70 uppercase tracking-widest text-xs md:text-sm mb-2 font-bold">
+                Government Initiatives
+              </p>
 
-  <h2 className="text-[#C80000] text-3xl md:text-5xl font-black uppercase tracking-tighter">
-    Key Solar Schemes
-  </h2>
-</div>
+              <h2 className="text-[#C80000] text-3xl md:text-5xl font-black uppercase tracking-tighter">
+                Key Solar Schemes
+              </h2>
+            </div>
 
 
             <div ref={slider} className="w-[400vw] h-[100dvh] flex flex-nowrap">
@@ -96,29 +96,29 @@ const GallerySection = () => {
                 {slides.map((slide, index) => (
                     <div
                         key={slide.id}
-                        className="gallery-panel w-screen h-[100dvh] flex-none flex items-center justify-center relative border-r border-white/10 bg-[#C80000]"
+                        className="gallery-panel w-screen h-[100dvh] flex-none flex items-center justify-center relative border-r border-gray-100 bg-white"
                     >
-                        {/* Background Image - Reduced blurriness by increasing opacity */}
-                        <div className="absolute inset-0 z-0">
+                        {/* Background Image - Redness reduced by removing red overlay and using natural tones */}
+                        <div className="absolute inset-0 z-0 bg-black">
                             <img
                                 src={slide.img}
                                 alt={slide.title}
-                                className="w-full h-full object-cover opacity-[3.0] transition-transform duration-700 hover:scale-105"
+                                className="w-full h-full object-cover opacity-60 transition-transform duration-1000 hover:scale-110"
                                 loading="eager"
                             />
-                            {/* Gradient adjusted for red theme */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#C80000] via-[#C80000]/40 to-transparent"></div>
+                            {/* Linear Black gradient instead of Red to make the image look natural while keeping text readable */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
                         </div>
 
                         <div className="relative z-10 max-w-4xl px-6 md:px-10 flex flex-col md:flex-row items-center gap-6 md:gap-10 mt-10 md:mt-0">
                             
-                            {/* Big background number */}
-                            <div className="text-[25vw] md:text-[12rem] font-black text-white/10 absolute -top-16 left-4 md:-top-40 md:left-0 select-none z-0">
+                            {/* Background number with subtle red tint */}
+                            <div className="text-[25vw] md:text-[12rem] font-black text-white/5 absolute -top-16 left-4 md:-top-40 md:left-0 select-none z-0">
                                 0{index + 1}
                             </div>
 
                             <div className="flex flex-col relative z-10 text-center md:text-left">
-                                <span className="text-white font-mono tracking-widest mb-2 md:mb-4 font-bold text-xs md:text-base bg-black/20 px-3 py-1 w-max mx-auto md:mx-0 rounded">
+                                <span className="text-white font-mono tracking-widest mb-2 md:mb-4 font-bold text-xs md:text-base bg-[#C80000] px-3 py-1 w-max mx-auto md:mx-0 rounded shadow-lg">
                                     {slide.subtitle}
                                 </span>
                                 
@@ -132,7 +132,7 @@ const GallerySection = () => {
                                 
                                 <button 
                                     onClick={handleNavigation}
-                                    className="mt-6 md:mt-8 px-6 py-2 md:px-8 md:py-3 border-2 border-white text-white text-xs md:text-sm tracking-widest uppercase font-black hover:bg-white hover:text-[#C80000] transition-all duration-300 w-max mx-auto md:mx-0"
+                                    className="mt-6 md:mt-8 px-6 py-2 md:px-8 md:py-3 bg-[#C80000] text-white text-xs md:text-sm tracking-widest uppercase font-black hover:bg-white hover:text-[#C80000] transition-all duration-300 w-max mx-auto md:mx-0 border border-[#C80000]"
                                 >
                                     Check Eligibility
                                 </button>

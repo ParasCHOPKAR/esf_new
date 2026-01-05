@@ -7,31 +7,31 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- DATA (Expanded Descriptions) ---
+// --- DATA ---
 const pillars = [
     { 
         id: "01",
         title: "Manufacturing", 
         subtitle: "Supply Chain Zero",
-        desc: "Strategic partnerships for high-quality PV module and inverter production. We utilize automated assembly lines to ensure zero-defect supply chains. Our facilities integrate AI-driven quality checks at every stage, minimizing failure rates and maximizing long-term energy yield for every installed unit.",
-        gradient: "linear-gradient(135deg, #0f380f 0%, #000000 100%)", 
-        accent: "#28a745"
+        desc: "Strategic partnerships for high-quality PV module and inverter production. We utilize automated assembly lines to ensure zero-defect supply chains. Our facilities integrate AI-driven quality checks at every stage, minimizing failure rates and maximizing long-term energy yield.",
+        gradient: "linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%)", 
+        accent: "#C80000"
     },
     { 
         id: "02",
         title: "Distribution", 
         subtitle: "Global Logistics",
-        desc: "Optimized logistics and warehousing across key regional hubs. Our AI-driven fleet management ensures just-in-time delivery to remote project sites. We maintain a robust inventory of critical spares to reduce downtime, ensuring that energy flows uninterrupted across our entire grid network.",
-        gradient: "linear-gradient(135deg, #064e3b 0%, #000000 100%)",
-        accent: "#34d399"
+        desc: "Optimized logistics and warehousing across key regional hubs. Our AI-driven fleet management ensures just-in-time delivery to remote project sites. We maintain a robust inventory of critical spares to reduce downtime, ensuring uninterrupted grid network flow.",
+        gradient: "linear-gradient(135deg, #fef2f2 0%, #ffffff 100%)",
+        accent: "#C80000"
     },
     { 
         id: "03",
         title: "Training Cmd", 
         subtitle: "Safety & Certification",
-        desc: "State-of-the-art facilities providing technical and safety training. We simulate high-voltage scenarios to certify the next generation of project managers. Our curriculum covers everything from basic installation protocols to advanced grid synchronization techniques, setting the industry standard.",
-        gradient: "linear-gradient(135deg, #115e59 0%, #000000 100%)",
-        accent: "#2dd4bf"
+        desc: "State-of-the-art facilities providing technical and safety training. We simulate high-voltage scenarios to certify the next generation of project managers. Our curriculum covers everything from basic installation protocols to advanced grid synchronization techniques.",
+        gradient: "linear-gradient(135deg, #fff5f5 0%, #ffffff 100%)",
+        accent: "#C80000"
     },
 ];
 
@@ -72,85 +72,73 @@ const InfrastructureSection = () => {
         return () => ctx.revert();
     }, []);
 
-    // NEW: Handle Mobile Click
     const handleInteraction = (index: number) => {
         setActiveIndex(index);
     };
 
     return (
-        <section ref={containerRef} className="bg-[#050505] text-white py-16 md:py-20 px-4 md:px-12 relative min-h-screen overflow-hidden">
+        <section ref={containerRef} className="bg-white text-[#C80000] py-16 md:py-20 px-4 md:px-12 relative min-h-screen overflow-hidden">
             
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+            {/* Redesigned Background Pattern for Light Theme */}
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#C80000 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
             <div className="max-w-6xl mx-auto relative z-10">
                 
                 {/* HEADER */}
                 <div className="mb-10">
-                    <span className="infra-title-anim inline-block text-[#28a745] font-mono tracking-widest text-xs md:text-sm uppercase font-bold mb-3 border-b border-[#28a745] pb-1">
+                    <span className="infra-title-anim inline-block text-[#C80000] font-mono tracking-widest text-xs md:text-sm uppercase font-bold mb-3 border-b border-[#C80000] pb-1">
                         Infrastructure Matrix
                     </span>
-                    {/* Responsive Text Size */}
-                    <h2 className="infra-title-anim text-[10vw] md:text-7xl font-black uppercase leading-[0.9] tracking-tighter">
+                    <h2 className="infra-title-anim text-[10vw] md:text-7xl font-black uppercase leading-[0.9] tracking-tighter text-[#C80000]">
                         The Backbone <br />
-                        <span className="text-gray-700">Of Energica.</span>
+                        <span className="text-gray-200">Of Energica.</span>
                     </h2>
                 </div>
 
-                {/* THE KINETIC DECK (Accordion) */}
+                {/* THE KINETIC DECK */}
                 <div className="infra-deck-container flex flex-col gap-2">
                     {pillars.map((item, index) => {
                         const isActive = activeIndex === index;
-                        
-                        // Responsive Heights
-                        // Mobile: 450px expanded (to fit text), 80px collapsed
-                        // Desktop: 380px expanded, 90px collapsed
                         const expandedHeight = window.innerWidth < 768 ? 550 : 380;
                         const collapsedHeight = window.innerWidth < 768 ? 80 : 90;
 
                         return (
                             <motion.div
                                 key={item.id}
-                                ref={(el) => {
-                                    if (el) deckItemsRef.current[index] = el;
-                                }}
-                                // Desktop Hover
+                                ref={(el) => { if (el) deckItemsRef.current[index] = el; }}
                                 onMouseEnter={() => handleInteraction(index)}
-                                // Mobile Tap
                                 onClick={() => handleInteraction(index)}
                                 animate={{ 
                                     height: isActive ? expandedHeight : collapsedHeight, 
-                                    backgroundColor: isActive ? "rgba(20, 20, 20, 1)" : "rgba(10, 10, 10, 0.5)"
+                                    backgroundColor: isActive ? "#ffffff" : "#fcfcfc"
                                 }}
                                 transition={{ type: "spring", stiffness: 120, damping: 20 }}
-                                className="group relative w-full overflow-hidden border border-white/10 rounded-2xl cursor-pointer"
-                                style={{
-                                    backgroundImage: isActive ? item.gradient : 'none'
-                                }}
+                                className={`group relative w-full overflow-hidden border transition-colors duration-300 rounded-2xl cursor-pointer ${isActive ? 'border-[#C80000]' : 'border-gray-100'}`}
+                                style={{ backgroundImage: isActive ? item.gradient : 'none' }}
                             >
                                 {/* CONTENT WRAPPER */}
                                 <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-between">
                                     
-                                    {/* TOP ROW: ID and Title */}
+                                    {/* TOP ROW */}
                                     <div className="flex items-center justify-between w-full">
                                         <div className="flex items-center gap-4 md:gap-6">
-                                            <span className={`text-lg md:text-xl font-mono tracking-widest transition-colors duration-300 ${isActive ? 'text-white' : 'text-gray-600'}`}>
+                                            <span className={`text-lg md:text-xl font-mono tracking-widest transition-colors duration-300 ${isActive ? 'text-[#C80000]' : 'text-gray-300'}`}>
                                                 /{item.id}
                                             </span>
-                                            {/* Responsive Title Size */}
-                                            <h3 className={`text-2xl sm:text-3xl md:text-5xl font-black uppercase transition-all duration-300 ${isActive ? 'translate-x-2 md:translate-x-4 text-white' : 'text-gray-500'}`}>
+                                            <h3 className={`text-2xl sm:text-3xl md:text-5xl font-black uppercase transition-all duration-300 ${isActive ? 'translate-x-2 md:translate-x-4 text-[#C80000]' : 'text-gray-400'}`}>
                                                 {item.title}
                                             </h3>
                                         </div>
                                         
                                         <motion.div 
                                             animate={{ rotate: isActive ? 90 : 0 }}
-                                            className={`text-xl md:text-2xl ${isActive ? 'text-white' : 'text-gray-700'}`}
+                                            className={`text-xl md:text-2xl ${isActive ? 'text-[#C80000]' : 'text-gray-300'}`}
                                         >
                                             ➔
                                         </motion.div>
                                     </div>
 
-                                    {/* REVEAL CONTENT (Only visible when active) */}
+                                    {/* REVEAL CONTENT */}
                                     <AnimatePresence>
                                         {isActive && (
                                             <motion.div
@@ -161,27 +149,25 @@ const InfrastructureSection = () => {
                                                 className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-8 mt-auto"
                                             >
                                                 <div className="max-w-2xl">
-                                                    <div className="text-xs md:text-sm font-mono text-white/60 mb-2 md:mb-3 uppercase tracking-wider">
+                                                    <div className="text-xs md:text-sm font-mono text-[#C80000]/60 mb-2 md:mb-3 uppercase tracking-wider">
                                                         {item.subtitle}
                                                     </div>
-                                                    {/* Responsive Desc Font Size */}
-                                                    <p className="text-base md:text-xl text-white font-light leading-relaxed">
+                                                    <p className="text-base md:text-xl text-gray-500 font-light leading-relaxed">
                                                         {item.desc}
                                                     </p>
                                                 </div>
 
-                                                {/* Decorative Technical UI (Hidden on Mobile to save space) */}
                                                 <div className="hidden md:block text-right">
                                                     <div className="flex flex-col items-end gap-1">
-                                                        <div className="w-24 h-1 bg-white/20 overflow-hidden rounded-full">
+                                                        <div className="w-24 h-1 bg-gray-100 overflow-hidden rounded-full">
                                                             <motion.div 
                                                                 initial={{ x: "-100%" }}
                                                                 animate={{ x: "0%" }}
                                                                 transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                                                                className="w-full h-full bg-white"
+                                                                className="w-full h-full bg-[#C80000]"
                                                             />
                                                         </div>
-                                                        <span className="text-[10px] font-mono text-white/50 uppercase">
+                                                        <span className="text-[10px] font-mono text-gray-400 uppercase">
                                                             System Status: Nominal
                                                         </span>
                                                     </div>
@@ -189,20 +175,18 @@ const InfrastructureSection = () => {
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
-
                                 </div>
 
-                                {/* Hover Scanline Effect */}
+                                {/* Hover Scanline Effect - Subtle for white theme */}
                                 {isActive && (
-                                    <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-30" 
-                                         style={{ backgroundImage: 'linear-gradient(transparent 50%, rgba(0,0,0,0.5) 50%)', backgroundSize: '100% 4px' }}>
+                                    <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
+                                         style={{ backgroundImage: 'linear-gradient(transparent 50%, rgba(200,0,0,0.5) 50%)', backgroundSize: '100% 4px' }}>
                                     </div>
                                 )}
                             </motion.div>
                         );
                     })}
                 </div>
-
             </div>
         </section>
     );

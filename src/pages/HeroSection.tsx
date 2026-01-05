@@ -79,28 +79,39 @@ const HeroSection = () => {
                         {/* Center Text Overlay */}
                         <div className="absolute z-20 flex flex-col items-center justify-center text-center w-full px-4">
 
-                            {/* Main Title: ENER (Hollow) + GICA (Solid) */}
+                            {/* Main Title: REDUCED text size from 14vw to 11vw */}
                             <h1 
                                 ref={text1} 
-                                // UPDATED CLASSES HERE:
-                                // 1. items-center justify-center: Centers alignment
-                                // 2. whitespace-nowrap: Prevents line breaks
-                                // 3. text-[12vw]: Fills circle better
-                                // 4. gap-1: Tighter spacing on mobile
-                                className="text-[12vw] md:text-[120px] font-black leading-none drop-shadow-2xl tracking-tighter flex items-center justify-center gap-1 md:gap-4 whitespace-nowrap"
+                                className="text-[11vw] md:text-[120px] font-black leading-none drop-shadow-2xl flex items-center justify-center whitespace-nowrap uppercase tracking-tighter"
+                                style={{ fontFamily: 'Inter, sans-serif' }}
                             >
-                                <span className="text-transparent" style={{ WebkitTextStroke: "1px white" }}>
-                                    ENER
-                                </span>
-                                <span className="text-white">
+                                {/* ENER - Wireframe/Overlapping Outline Effect */}
+                                <div className="flex -space-x-[0.02em] md:-space-x-[0.02em] items-center">
+                                    {['E', 'N', 'E', 'R'].map((char, i) => (
+                                        <span 
+                                            key={i}
+                                            className="text-transparent"
+                                            style={{ 
+                                                WebkitTextStroke: "1px white",
+                                                opacity: 0.9,
+                                                display: 'inline-block'
+                                            }}
+                                        >
+                                            {char}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {/* GICA - Solid, Ultra-tight tracking */}
+                                <span className="text-white tracking-[-0.08em] ml-[-0.02em]">
                                     GICA
                                 </span>
                             </h1>
 
-                            {/* Subtitle: SUSTAIN FOUNDATION */}
+                            {/* Subtitle: REDUCED text size from 2.5vw to 1.8vw */}
                             <h2 
                                 ref={text2} 
-                                className="mt-4 md:mt-6 text-[2.5vw] md:text-[20px] font-bold tracking-[0.3em] text-white drop-shadow-md"
+                                className="mt-2 md:mt-4 text-[1.8vw] md:text-[16px] font-bold tracking-[0.65em] text-white drop-shadow-md uppercase"
                             >
                                 SUSTAIN FOUNDATION
                             </h2>
@@ -109,7 +120,6 @@ const HeroSection = () => {
                     </div>
                 </div>
 
-                {/* ContentSection linked via ref for GSAP slide-up */}
                 <div className="last">
                     <ContentSection ref={container} />
                 </div>
