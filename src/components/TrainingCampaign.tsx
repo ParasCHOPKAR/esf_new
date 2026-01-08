@@ -124,11 +124,12 @@ const TrainingCampaign = () => {
         <div className="mb-32 md:mb-48 pt-10">
           <div className="flex flex-col border-l border-[#C80000]/50 pl-6 md:pl-10">
             <span className="hero-char font-mono text-[#C80000] text-sm tracking-[0.2em] mb-4 block">
-              // EDUCATIONAL_MODULES_V.2.0
+              // EDUCATIONAL_MODULES
             </span>
-            <h1 className="text-5xl md:text-8xl font-black uppercase leading-[0.9] tracking-tighter mb-8">
+            {/* Updated Main Heading Color */}
+            <h1 className="text-5xl md:text-8xl font-black uppercase leading-[0.9] tracking-tighter mb-8 text-[#C80000]">
               Training <br/> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-400">Campaigns</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C80000] to-[#e60000]">Campaigns</span>
             </h1>
             <p className="hero-char text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed">
               Empowering the next generation of energy integrators through advanced technical workshops, policy framework analysis, and hands-on operational training.
@@ -139,14 +140,14 @@ const TrainingCampaign = () => {
         {/* --- SECTION 1: SOLAR TECH --- */}
         <div className="mb-40">
           <div className="flex items-end justify-between mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight">Current <span className="text-[#C80000]">Technology</span></h2>
+            {/* Updated Section Subheading Color */}
+            <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-[#C80000]">Current Technology</h2>
             <span className="hidden md:block font-mono text-gray-400">01 / 03</span>
           </div>
 
           <div className="border-t border-gray-200">
             {solarTech.map((item, idx) => (
               <div key={idx} className="spec-row group relative border-b border-gray-100 overflow-hidden transition-all duration-700">
-                {/* Background Image Reveal on Hover - INCREASED OPACITY FOR CLARITY */}
                 <div 
                   className="absolute inset-0 opacity-0 group-hover:opacity-30 group-hover:scale-105 transition-all duration-1000 bg-cover bg-center pointer-events-none"
                   style={{ backgroundImage: `url(${item.image})` }}
@@ -176,7 +177,8 @@ const TrainingCampaign = () => {
         {/* --- SECTION 2: NEW TECH --- */}
         <div className="mb-40">
           <div className="flex items-end justify-between mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight">New <span className="text-[#C80000]">Integrations</span></h2>
+            {/* Updated Section Subheading Color */}
+            <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-[#C80000]">New Integrations</h2>
             <span className="hidden md:block font-mono text-gray-400">02 / 03</span>
           </div>
 
@@ -194,7 +196,6 @@ const TrainingCampaign = () => {
                   </div>
                   <div className="spec-content lg:col-span-8 flex flex-col md:flex-row gap-6 items-center">
                     <p className="text-gray-600 text-lg font-light leading-relaxed flex-1">{item.desc}</p>
-                    {/* Small Image Preview - REMOVED GRAYSCALE FOR CLARITY */}
                     <div className="w-full md:w-32 h-20 overflow-hidden rounded border border-gray-100 group-hover:border-[#C80000]/50 transition-all">
                         <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
                     </div>
@@ -208,7 +209,8 @@ const TrainingCampaign = () => {
         {/* --- SECTION 3: CAPACITY BUILDING --- */}
         <div className="mb-40">
            <div className="flex items-end justify-between mb-20">
-            <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight">Capacity <span className="text-gray-400">Building</span></h2>
+            {/* Updated Section Subheading Color */}
+            <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-[#C80000]">Capacity Building</h2>
             <span className="hidden md:block font-mono text-gray-400">03 / 03</span>
           </div>
 
@@ -228,7 +230,6 @@ const TrainingCampaign = () => {
                     </p>
                   </div>
                 </div>
-                {/* Large Background Image reveal - INCREASED OPACITY FOR CLARITY */}
                 <div 
                   className="absolute right-0 top-0 w-1/3 h-full opacity-0 group-hover:opacity-60 translate-x-10 group-hover:translate-x-0 transition-all duration-1000 pointer-events-none"
                   style={{ 

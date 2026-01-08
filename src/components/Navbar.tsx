@@ -2,7 +2,6 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import logo from '../assets/Energica.png';
 
 const navItems = [
     { name: "About Us", id: "about", path: "/about" },
@@ -17,7 +16,6 @@ const Navbar = () => {
     const [isHidden, setIsHidden] = useState(false); 
     const menuRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const bgRef = useRef<HTMLDivElement>(null);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -32,7 +30,6 @@ const Navbar = () => {
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            // Master Timeline for Menu Open
             const tl = gsap.timeline({
                 paused: true,
                 defaults: { duration: 1, ease: "expo.inOut" }
@@ -87,34 +84,37 @@ const Navbar = () => {
             } else {
                 window.scrollTo(0, 0);
             }
-        }, 800); // Slightly longer for smooth exit
+        }, 800);
     };
 
     return (
         <div ref={containerRef} style={{ fontFamily: "'Montserrat', sans-serif" }}>
             <motion.nav 
-                className="fixed top-0 left-0 w-full z-[120] flex justify-between items-center px-6 md:px-10 py-4 bg-transparent text-white"
+                // Navbar color set to #C80000
+                className="fixed top-0 left-0 w-full z-[120] flex justify-between items-center px-6 md:px-10 py-3 bg-[#C80000] text-white shadow-xl"
                 variants={{
                     visible: { y: 0, opacity: 1 },
-                    hidden: { y: -20, opacity: 0 },
+                    hidden: { y: -100, opacity: 0 },
                 }}
                 animate={isHidden ? "hidden" : "visible"}
                 transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
             >
-                {/* Logo */}
+                {/* Text Logo - Reduced size (text-2xl to md:text-4xl) and straight */}
                 <motion.div
                     onClick={() => navigateTo("/", "home", false)}
-                    className="cursor-pointer z-[130]"
+                    className="cursor-pointer z-[130] flex items-center"
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                    <img src={logo} className="h-10 md:h-16 w-auto object-contain filter brightness-0 invert" alt="Energica Logo" />
+                    <span className="text-2xl md:text-4xl font-black tracking-tighter uppercase text-white leading-none">
+                        Energica
+                    </span>
                 </motion.div>
 
                 {/* Tactical Hamburger Button */}
                 <motion.button
                     onClick={toggleMenu}
-                    className={`z-[130] group flex flex-col justify-center items-center gap-1.5 cursor-pointer w-14 h-14 rounded-full shadow-2xl transition-colors duration-500 ${
+                    className={`z-[130] group flex flex-col justify-center items-center gap-1.5 cursor-pointer w-12 h-12 md:w-14 md:h-14 rounded-full shadow-2xl transition-colors duration-500 ${
                         isOpen ? 'bg-white/10 backdrop-blur-xl' : 'bg-white'
                     }`}
                 >
@@ -137,7 +137,6 @@ const Navbar = () => {
                 ref={menuRef}
                 className="fixed top-0 right-0 w-screen h-screen bg-[#C80000] text-white z-[100] flex flex-col justify-center items-center invisible opacity-0 translate-x-full"
             >
-                {/* Immersive Noise and Gradient */}
                 <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png")' }}></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/40 pointer-events-none"></div>
 
@@ -149,7 +148,6 @@ const Navbar = () => {
                                 style={{ fontWeight: 900 }}
                                 className="menu-link-item block w-full text-4xl md:text-7xl font-black uppercase tracking-tighter text-left group relative italic"
                             >
-                                {/* Animated underline with elastic feel */}
                                 <span className="absolute left-0 bottom-0 h-[4px] w-0 bg-white transition-all duration-700 ease-[0.19,1,0.22,1] group-hover:w-full"></span>
                                 <span className="relative text-white group-hover:pl-6 transition-all duration-500 ease-out inline-block">
                                     {item.name}
@@ -159,7 +157,6 @@ const Navbar = () => {
                     ))}
                 </ul>
 
-                {/* Bottom Brand Info */}
                 <div className="brand-info absolute bottom-10 left-10 md:left-20 text-white/40 font-medium tracking-widest text-[11px] uppercase space-y-1">
                     <p>© Energica Sustain Foundation // 2025</p>
                     <div className="h-[1px] w-12 bg-white/20"></div>

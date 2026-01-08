@@ -116,7 +116,8 @@ const Consultation = () => {
         
         {/* --- HERO SECTION --- */}
         <div className="mb-24 md:mb-48">
-          <h1 className="hero-line text-[10vw] sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.9] mb-6 text-gray-900">
+          {/* Updated Hero Heading Color */}
+          <h1 className="hero-line text-[10vw] sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.9] mb-6 text-[#C80000]">
             Consultation <br/> 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C80000] to-red-900">
               & Strategy
@@ -132,13 +133,12 @@ const Consultation = () => {
           {services.map((service, index) => (
             <div key={index} className="service-row group relative py-16 md:py-28 cursor-pointer overflow-hidden">
               
-              {/* Background Reveal Logic - Made Clearer by using higher base opacity and lower gray tint */}
+              {/* Background Reveal Logic */}
               <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out">
                 <div 
                   className="row-bg-image absolute inset-[-20%] w-[140%] h-[140%] bg-cover bg-center grayscale-[0.5] group-hover:grayscale-0 transition-all duration-1000"
                   style={{ backgroundImage: `url(${service.image})` }}
                 />
-                {/* Light Overlay to keep text readable on white bg */}
                 <div className="absolute inset-0 bg-white/90 group-hover:bg-white/70 transition-colors duration-700" />
               </div>
 
@@ -156,7 +156,8 @@ const Consultation = () => {
 
                 {/* Column 2: Title */}
                 <div className="md:col-span-6 animate-content">
-                  <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase leading-none text-gray-900 group-hover:italic transition-all duration-500">
+                  {/* Updated Service Title Color */}
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase leading-none text-[#C80000] group-hover:italic transition-all duration-500">
                     {service.title}
                   </h2>
                   <span className="block mt-4 font-mono text-xs tracking-[0.3em] text-gray-400 uppercase group-hover:text-gray-600 transition-colors">
@@ -179,7 +180,6 @@ const Consultation = () => {
               </div>
             </div>
           ))}
-          {/* Bottom border for the last item */}
           <div className="w-full h-[1px] bg-gray-200" />
         </div>
 
@@ -187,7 +187,8 @@ const Consultation = () => {
         <div className="mt-40 bg-gray-50 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden group border border-gray-100 shadow-sm">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#C80000]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             
-            <h2 className="relative z-10 text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-10 text-gray-900">
+            {/* Updated CTA Heading Color */}
+            <h2 className="relative z-10 text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-10 text-[#C80000]">
                 Let's Build the <br/> <span className="text-[#C80000]">Green Grid.</span>
             </h2>
             

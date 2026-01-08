@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useRef } from "react";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import ContentSection from "./ContentSection";
-// 1. IMPORT YOUR LOCAL IMAGE
 import solar from "../assets/solar-Panels.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,7 +15,6 @@ const HeroSection = () => {
     const img = useRef(null);
 
     useLayoutEffect(() => {
-        // Safety Check
         if (!bg1.current || !img_container.current || !container.current) return;
 
         const ctx = gsap.context(() => {
@@ -44,12 +42,9 @@ const HeroSection = () => {
                     start: "0% 0%",
                 }
             })
-            // ZOOM Effect
             .to(img.current, { transform: "translateZ(2200px)" }) 
-            // Text Moves Up & Fades Out
             .to(text1.current, { y: -300, opacity: 0 }, "<0.05") 
             .to(text2.current, { y: -300, opacity: 0 }, "<0.05") 
-            // Content Slides Up from bottom
             .fromTo(container.current, 
                 { yPercent: 100, scaleY: 2 }, 
                 { yPercent: 0, scaleY: 1 } 
@@ -61,14 +56,13 @@ const HeroSection = () => {
 
     return (
         <div className="relative">
-            {/* BLACK BACKGROUND */}
-            <div ref={bg1} className="bg-[#0b0b0b] absolute h-screen w-screen -z-10"></div>
+            {/* Background color set to #C80000 */}
+            <div ref={bg1} className="bg-[#C80000] absolute h-screen w-screen -z-10"></div>
 
             <section>
                 <div ref={img_container} className="w-screen h-[100dvh] flex items-center justify-center overflow-hidden">
                     <div className="image-wrapper perspective relative flex items-center justify-center">
 
-                        {/* Image - Colorful & Vibrant */}
                         <img 
                             ref={img} 
                             src={solar} 
@@ -76,24 +70,24 @@ const HeroSection = () => {
                             alt="Solar Farm" 
                         />
 
-                        {/* Center Text Overlay */}
                         <div className="absolute z-20 flex flex-col items-center justify-center text-center w-full px-4">
 
-                            {/* Main Title: REDUCED text size from 14vw to 11vw */}
                             <h1 
                                 ref={text1} 
                                 className="text-[11vw] md:text-[120px] font-black leading-none drop-shadow-2xl flex items-center justify-center whitespace-nowrap uppercase tracking-tighter"
                                 style={{ fontFamily: 'Inter, sans-serif' }}
                             >
-                                {/* ENER - Wireframe/Overlapping Outline Effect */}
                                 <div className="flex -space-x-[0.02em] md:-space-x-[0.02em] items-center">
                                     {['E', 'N', 'E', 'R'].map((char, i) => (
                                         <span 
                                             key={i}
-                                            className="text-transparent"
+                                            // UPDATED: Changed from transparent to #C80000
+                                            className="text-[#C80000]"
                                             style={{ 
-                                                WebkitTextStroke: "1px white",
-                                                opacity: 0.9,
+                                                // UPDATED: Changed stroke to White or Red depending on your preference 
+                                                // Keeping 1px white stroke to make red letters pop against the background image
+                                                WebkitTextStroke: "1px #C80000",
+                                                opacity: 1,
                                                 display: 'inline-block'
                                             }}
                                         >
@@ -102,13 +96,11 @@ const HeroSection = () => {
                                     ))}
                                 </div>
 
-                                {/* GICA - Solid, Ultra-tight tracking */}
                                 <span className="text-white tracking-[-0.08em] ml-[-0.02em]">
                                     GICA
                                 </span>
                             </h1>
 
-                            {/* Subtitle: REDUCED text size from 2.5vw to 1.8vw */}
                             <h2 
                                 ref={text2} 
                                 className="mt-2 md:mt-4 text-[1.8vw] md:text-[16px] font-bold tracking-[0.65em] text-white drop-shadow-md uppercase"

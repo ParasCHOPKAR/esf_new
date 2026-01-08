@@ -144,7 +144,7 @@ const AwarenessCampaign = () => {
           <span className="text-[#C80000] tracking-[0.4em] text-xs md:text-sm font-black block mb-4 uppercase">
             // Policy & Awareness
           </span>
-          <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-none">
+          <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-none text-[#C80000]">
             GOVERNMENT<br />
             <span className="text-gray-200">INITIATIVES</span>
           </h1>
@@ -171,7 +171,8 @@ const AwarenessCampaign = () => {
                     <span className="uppercase text-xs tracking-widest font-bold text-gray-400">{policy.subtitle}</span>
                   </div>
                   
-                  <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight text-gray-900 leading-none">
+                  {/* Updated Policy Heading Color */}
+                  <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight text-[#C80000] leading-none">
                     {policy.title}
                   </h2>
                   
